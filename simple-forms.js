@@ -1,7 +1,8 @@
-class Survey {
+class Form {
   constructor() {
-    this.surveyName = '';
-    this.survey 
+    this.formName = '';
+    this.formId = 0;
+    this.formElements = [];
   }
 }
 
@@ -13,22 +14,57 @@ class InputBox {
   }
 }
 
+const Forms = []
+
 function createForm() {
+  const newForm = new Form();
+  Forms.push(newForm);
+
   const form = document.createElement('form');
-  console.log(form);
+  form.className = 'simple-form simple-form-container';
   return form;
 }
 
-// This id determines where the form will be placed.
-function addFormToPage(id) {
+function addInputArea(form, type, inputAreaPlaceholder, labelValue) {
+  const newInputArea = document.createElement('input');
+  newInputArea.type = type;
+  
+  if (type === 'email' || type === 'password') {
+    newInputArea.placeholder = inputAreaPlaceholder;
+  }
+  let labelInputArea;
+  if (!!labelValue) {
+    labelInputArea = document.createElement('label');
+    labelInputArea.className = 'simple-form simple-form-input-label';
+    labelInputArea.textContent = labelValue;
+  }
 
+  const inputAreaContainer = document.createElement('div');
+  inputAreaContainer.className = 'simple-form simple-form-input-container';
+
+  if (!!labelInputArea) inputAreaContainer.appendChild(labelInputArea)
+  inputAreaContainer.appendChild(newInputArea)
+  form.appendChild(inputAreaContainer);
+
+  return newInputArea;
+}
+
+function addStyle(item, styles) {
+  item.className = item.className.concat(' ', styles);
+}
+
+
+
+// This id determines where the form will be placed.
+function addFormToPage(id, form) {
+  document.querySelector(`#${id}`).appendChild(form);
 }
 
 // const formsOnPage = document.querySelectorAll('.simple-form');
-console.log(formsOnPage);
+// console.log(formsOnPage);
 
 
-// Input
+// Input - Textboxes, Password, Email...
 // Dropdown
 // Checkbox
 // Submit

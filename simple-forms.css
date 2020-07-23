@@ -1,0 +1,27 @@
+.simple-form-container {
+  position: center;
+  margin: 24px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+}
+
+.simple-form-input-label {
+  display: block;
+}
+
+.simple-form-input-container {
+  margin: 24px;
+}
+
+/* This is the set of colours available for the app.
+   These should be modified later to provide the user with
+   colours of their choice or custom colours.
+*/
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}
