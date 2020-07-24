@@ -27,11 +27,19 @@ function createForm() {
 
 function addInputArea(form, type, inputAreaPlaceholder, labelValue) {
   const newInputArea = document.createElement('input');
-  newInputArea.type = type;
+
+  if (type === 'email' || type === 'password') {
+    newInputArea.type = type;
+  } else {
+    return;
+  }
   
   if (type === 'email' || type === 'password') {
     newInputArea.placeholder = inputAreaPlaceholder;
   }
+
+  newInputArea.className = `simple-form simple-form-input-area-${type}`
+
   let labelInputArea;
   if (!!labelValue) {
     labelInputArea = document.createElement('label');
@@ -45,8 +53,55 @@ function addInputArea(form, type, inputAreaPlaceholder, labelValue) {
   if (!!labelInputArea) inputAreaContainer.appendChild(labelInputArea)
   inputAreaContainer.appendChild(newInputArea)
   form.appendChild(inputAreaContainer);
+}
 
-  return newInputArea;
+function addCheckBox(form, labelValue, labelSide) {
+  const newCheckBox = document.createElement('input');
+  newCheckBox.type = 'checkbox';
+  newCheckBox.className = `simple-form simple-form-input-area-checkbox`;
+  
+  const newLabelSide = labelSide || 'left';
+  const newLabel = labelValue || '';
+
+  const checkBoxContainer = document.createElement('div')
+  checkBoxContainer.className = 'simple-form simple-form-input-container';
+
+  if (newLabel !== '') {
+    const checkBoxLabel = document.createElement('label');
+    checkBoxLabel.textContent = newLabel;
+
+    if (newLabelSide === 'right') {
+      checkBoxContainer.appendChild(newCheckBox);
+      checkBoxContainer.appendChild(checkBoxLabel);
+    } else {
+      checkBoxContainer.appendChild(checkBoxLabel);
+      checkBoxContainer.appendChild(newCheckBox);
+    }
+  } else {
+    checkBoxContainer.appendChild(newCheckBox);
+  }
+
+  form.appendChild(checkBoxContainer);
+}
+
+function addNumberPicker(form, labelValue) {
+  const numberPicker = document.createElement('input');
+  numberPicker.type = 'number';
+  numberPicker.className = `simple-form simple-form-input-area-number`;
+
+  let labelInputArea;
+  if (!!labelValue) {
+    labelInputArea = document.createElement('label');
+    labelInputArea.className = 'simple-form simple-form-input-label';
+    labelInputArea.textContent = labelValue;
+  }
+
+  const inputAreaContainer = document.createElement('div');
+  inputAreaContainer.className = 'simple-form simple-form-input-container';
+
+  if (!!labelInputArea) inputAreaContainer.appendChild(labelInputArea)
+  inputAreaContainer.appendChild(newInputArea)
+  form.appendChild(inputAreaContainer);
 }
 
 function addStyle(item, styles) {
