@@ -100,7 +100,7 @@ function addNumberPicker(form, labelValue) {
   inputAreaContainer.className = 'simple-form simple-form-input-container';
 
   if (!!labelInputArea) inputAreaContainer.appendChild(labelInputArea)
-  inputAreaContainer.appendChild(newInputArea)
+  inputAreaContainer.appendChild(numberPicker)
   form.appendChild(inputAreaContainer);
 }
 
@@ -108,6 +108,20 @@ function addStyle(item, styles) {
   item.className = item.className.concat(' ', styles);
 }
 
+function addSubmitButton(form, buttonText, onClickFunction) {
+  const newSubmitButton = document.createElement('input');
+  newSubmitButton.type = 'submit';
+  newSubmitButton.value = buttonText || '';
+  newSubmitButton.className = 'simple-form simple-form-button';
+
+  const buttonContainer = document.createElement('div');
+  buttonContainer.className = 'simple-form simple-form-button-container';
+
+  buttonContainer.appendChild(newSubmitButton);
+  // Add submit div, and add styling.
+  form.appendChild(buttonContainer);
+  form.addEventListener('submit', onClickFunction);
+}
 
 
 // This id determines where the form will be placed.

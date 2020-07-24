@@ -10,6 +10,7 @@
 .simple-form-input-label {
   display: block;
   font-weight: bold;
+  margin: 4px;
 }
 
 .simple-form-input-container {
@@ -21,8 +22,7 @@
   height: 36px;
   border-radius: 4px;
   border-width: 1px;
-  color: black;
-  background-color: #b2bec3;
+  background-color: #dce3e8;
 }
 
 .simple-form-input-area-password {
@@ -30,6 +30,19 @@
   height: 36px;
   border-radius: 4px;
   border-width: 1px;
+  background-color: #dce3e8;
+}
+
+.simple-form-button {
+  padding: 16px;
+  border-radius: 100px;
+  /* background-color: turquoise; */
+}
+
+.simple-form-button-container {
+  display: flex;
+  justify-items: center;
+  align-items: center;
 }
 
 /* This is the set of colours available for the app.
