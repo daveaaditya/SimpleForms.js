@@ -69,7 +69,7 @@ class Form {
 
 class InputTextArea {
   constructor(type, inputAreaPlaceholder, labelValue) {
-    this.type = type || 'email';
+    this.type = type || 'text';
     this.placeholder = inputAreaPlaceholder || '';
     this.labelValue = labelValue || '';
   }
