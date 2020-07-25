@@ -1,9 +1,10 @@
 class Form {
-  constructor() {
-    this.formName = '';
-    this.formId = 0;
+  constructor(formName) {
+    this.formName = formName;
     this.formElements = [];
   }
+
+  
 }
 
 class InputBox {
@@ -14,11 +15,9 @@ class InputBox {
   }
 }
 
-const Forms = []
-
-function createForm() {
-  const newForm = new Form();
-  Forms.push(newForm);
+function createForm(formName) {
+  const newForm = new Form(formName);
+  // Forms.push(newForm);
 
   const form = document.createElement('form');
   form.className = 'simple-form simple-form-container';
