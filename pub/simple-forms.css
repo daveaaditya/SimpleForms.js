@@ -1,0 +1,51 @@
+.simple-form-container {
+  position: center;
+  padding: 12px;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+  box-shadow: 0 1px 5px;
+}
+
+.simple-form-input-label {
+  display: block;
+  font-weight: bold;
+  margin: 4px;
+}
+
+.simple-form-input-container {
+  margin: 24px;
+}
+
+.simple-form-input-area-email, 
+.simple-form-input-area-password, 
+.simple-form-input-area-text {
+  width: 100%;
+  height: 36px;
+  border-radius: 4px;
+  border-width: 1px;
+  background-color: #dce3e8;
+}
+
+.simple-form-button {
+  padding: 16px;
+  border-radius: 100px;
+  display: block;
+  margin: 0 auto;
+}
+
+.simple-form-button-container {
+  display: flex;
+}
+
+/* This is the set of colours available for the app.
+   These should be modified later to provide the user with
+   colours of their choice or custom colours.
+*/
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}
