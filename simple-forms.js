@@ -10,7 +10,7 @@ class Form {
     this.formElements.push(newInputArea);
   }
 
-  addCheckBox(labelValue, labelSide) {
+  addCheckbox(labelValue, labelSide) {
     const newCheckBox = new Checkbox(labelValue, labelSide);
     this.formElements.push(newCheckBox);
   }
@@ -50,7 +50,7 @@ class Form {
   getFormData() {
     if (!!this.id) {
       const form = document.querySelector(`#${this.id}`);
-      const formInputs = document.querySelectorAll('input');
+      const formInputs = form.querySelectorAll('input');
 
       // May need to remove submit button.
       const formValues = []
