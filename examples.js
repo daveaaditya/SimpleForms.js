@@ -5,5 +5,6 @@ newForm.addInputArea('password', 'Enter Password here', 'Password');
 newForm.addNumberPicker('Pick a number');
 newForm.addSubmitButton('Submit', function(e) {
   e.preventDefault();
+  console.log(newForm.getFormData());
 });
 newForm.buildForm('hello');

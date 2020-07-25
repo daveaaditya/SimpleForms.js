@@ -2,12 +2,12 @@ class Form {
   constructor(formName) {
     this.formName = formName;
     this.formElements = [];
+    this.id = '';
   }
 
   addInputArea(type, inputAreaPlaceholder, labelValue) {
     const newInputArea = new InputTextArea(type, inputAreaPlaceholder, labelValue);
     this.formElements.push(newInputArea);
-    // form.appendChild(inputAreaContainer);
   }
 
   addCheckBox(form, labelValue, labelSide) {
@@ -33,7 +33,7 @@ class Form {
 
   buildForm(id) {
     const form = this.createDOMElement();
-    
+    this.id = id;
     const completeForm = this.formElements.reduce(function (currentForm, formItem) {
       if (formItem.constructor.name === 'SubmitButton') {
         currentForm.appendChild(formItem.createDOMElement(currentForm));
@@ -45,6 +45,25 @@ class Form {
     }, form);
 
     document.querySelector(`#${id}`).appendChild(completeForm);
+  }
+
+  getFormData() {
+    if (!!this.id) {
+      const form = document.querySelector(`#${this.id}`);
+      const formInputs = document.querySelectorAll('input');
+
+      // May need to remove submit button.
+      const formValues = []
+      formInputs.forEach(function(element) {
+        if (element.type === 'checkbox') {
+          formValues.push(element.checked);
+        } else {
+          formValues.push(element.value);
+        }
+      });
+
+      return formValues;
+    }
   }
 }
 
@@ -168,12 +187,6 @@ function createForm(formName) {
 
 function addStyle(item, styles) {
   item.className = item.className.concat(' ', styles);
-}
-
-
-// This id determines where the form will be placed.
-function addFormToPage(id, form) {
-  document.querySelector(`#${id}`).appendChild(form);
 }
 
 // Dropdown
