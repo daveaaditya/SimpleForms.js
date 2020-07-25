@@ -1,6 +1,7 @@
 .simple-form-container {
   position: center;
   margin: 24px;
+  padding: 12px;
   border-style: solid;
   border-width: 1px;
   border-radius: 4px;
@@ -36,13 +37,13 @@
 .simple-form-button {
   padding: 16px;
   border-radius: 100px;
+  display: block;
+  margin: 0 auto;
   /* background-color: turquoise; */
 }
 
 .simple-form-button-container {
   display: flex;
-  justify-items: center;
-  align-items: center;
 }
 
 /* This is the set of colours available for the app.

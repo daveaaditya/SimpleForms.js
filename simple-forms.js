@@ -2,138 +2,192 @@ class Form {
   constructor(formName) {
     this.formName = formName;
     this.formElements = [];
+    this.id = '';
   }
 
-  
+  addInputArea(type, inputAreaPlaceholder, labelValue) {
+    const newInputArea = new InputTextArea(type, inputAreaPlaceholder, labelValue);
+    this.formElements.push(newInputArea);
+  }
+
+  addCheckBox(form, labelValue, labelSide) {
+    const newCheckBox = new Checkbox(form, labelValue, labelSide);
+    this.formElements.push(newCheckBox);
+  }
+
+  addNumberPicker(labelValue) {
+    const newNumberPicker = new NumberPicker(labelValue);
+    this.formElements.push(newNumberPicker);
+  }
+
+  addSubmitButton(buttonText, onClickFunction) {
+    const newSubmitButton = new SubmitButton(buttonText, onClickFunction);
+    this.formElements.push(newSubmitButton);
+  }
+
+  createDOMElement() {
+    const form = document.createElement('form');
+    form.className = 'simple-form simple-form-container';
+    return form;
+  }
+
+  buildForm(id) {
+    const form = this.createDOMElement();
+    this.id = id;
+    const completeForm = this.formElements.reduce(function (currentForm, formItem) {
+      if (formItem.constructor.name === 'SubmitButton') {
+        currentForm.appendChild(formItem.createDOMElement(currentForm));
+      } else {
+        currentForm.appendChild(formItem.createDOMElement());
+      }
+
+      return currentForm;
+    }, form);
+
+    document.querySelector(`#${id}`).appendChild(completeForm);
+  }
+
+  getFormData() {
+    if (!!this.id) {
+      const form = document.querySelector(`#${this.id}`);
+      const formInputs = document.querySelectorAll('input');
+
+      // May need to remove submit button.
+      const formValues = []
+      formInputs.forEach(function(element) {
+        if (element.type === 'checkbox') {
+          formValues.push(element.checked);
+        } else {
+          formValues.push(element.value);
+        }
+      });
+
+      return formValues;
+    }
+  }
 }
 
-class InputBox {
-  constructor() {
-    this.label = '';
-    this.value = '';
-    this.id = '';
+class InputTextArea {
+  constructor(type, inputAreaPlaceholder, labelValue) {
+    this.type = type || 'email';
+    this.placeholder = inputAreaPlaceholder || '';
+    this.labelValue = labelValue || '';
+  }
+
+  createDOMElement() {
+    const newInputArea = document.createElement('input');
+    
+    newInputArea.type = this.type;
+    newInputArea.placeholder = this.placeholder;
+  
+    newInputArea.className = `simple-form simple-form-input-area-${this.type}`
+  
+    let labelInputArea;
+    if (!!this.labelValue) {
+      labelInputArea = document.createElement('label');
+      labelInputArea.className = 'simple-form simple-form-input-label';
+      labelInputArea.textContent = this.labelValue;
+    }
+  
+    const inputAreaContainer = document.createElement('div');
+    inputAreaContainer.className = 'simple-form simple-form-input-container';
+  
+    if (!!labelInputArea) inputAreaContainer.appendChild(labelInputArea)
+    inputAreaContainer.appendChild(newInputArea)
+    return inputAreaContainer;
+  }
+}
+
+class Checkbox {
+  constructor(labelValue, labelSide) {
+    this.labelValue = labelValue || '';
+    this.labelSide = labelSide || 'left';
+  }
+
+  createDOMElement() {
+    const newCheckBox = document.createElement('input');
+    newCheckBox.type = 'checkbox';
+    newCheckBox.className = `simple-form simple-form-input-area-checkbox`;
+
+    const checkBoxContainer = document.createElement('div')
+    checkBoxContainer.className = 'simple-form simple-form-input-container';
+
+    if (!!this.labelValue) {
+      const checkBoxLabel = document.createElement('label');
+      checkBoxLabel.textContent = this.labelValue;
+
+      if (this.labelSide === 'right') {
+        checkBoxContainer.appendChild(newCheckBox);
+        checkBoxContainer.appendChild(checkBoxLabel);
+      } else {
+        checkBoxContainer.appendChild(checkBoxLabel);
+        checkBoxContainer.appendChild(newCheckBox);
+      }
+    } else {
+      checkBoxContainer.appendChild(newCheckBox);
+    }
+
+    return checkBoxContainer;
+  }
+}
+
+class NumberPicker {
+  constructor(labelValue) {
+    this.labelValue = labelValue || '';
+  }
+
+  createDOMElement() {
+    const numberPicker = document.createElement('input');
+    numberPicker.type = 'number';
+    numberPicker.className = `simple-form simple-form-input-area-number`;
+
+    let labelInputArea;
+    if (!!this.labelValue) {
+      labelInputArea = document.createElement('label');
+      labelInputArea.className = 'simple-form simple-form-input-label';
+      labelInputArea.textContent = this.labelValue;
+    }
+
+    const inputAreaContainer = document.createElement('div');
+    inputAreaContainer.className = 'simple-form simple-form-input-container';
+
+    if (!!labelInputArea) inputAreaContainer.appendChild(labelInputArea)
+    inputAreaContainer.appendChild(numberPicker)
+
+    return inputAreaContainer;
+  }
+}
+
+class SubmitButton {
+  constructor (buttonText, onClickFunction) {
+    this.buttonText = buttonText;
+    this.onClickFunction = onClickFunction;
+  }
+
+  createDOMElement(form) {
+    const newSubmitButton = document.createElement('input');
+    newSubmitButton.type = 'submit';
+    newSubmitButton.value = this.buttonText || '';
+    newSubmitButton.className = 'simple-form simple-form-button';
+
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'simple-form simple-form-button-container';
+
+    buttonContainer.appendChild(newSubmitButton);
+    form.addEventListener('submit', this.onClickFunction);
+
+    return buttonContainer;
   }
 }
 
 function createForm(formName) {
   const newForm = new Form(formName);
-  // Forms.push(newForm);
-
-  const form = document.createElement('form');
-  form.className = 'simple-form simple-form-container';
-  return form;
-}
-
-function addInputArea(form, type, inputAreaPlaceholder, labelValue) {
-  const newInputArea = document.createElement('input');
-
-  if (type === 'email' || type === 'password') {
-    newInputArea.type = type;
-  } else {
-    return;
-  }
-  
-  if (type === 'email' || type === 'password') {
-    newInputArea.placeholder = inputAreaPlaceholder;
-  }
-
-  newInputArea.className = `simple-form simple-form-input-area-${type}`
-
-  let labelInputArea;
-  if (!!labelValue) {
-    labelInputArea = document.createElement('label');
-    labelInputArea.className = 'simple-form simple-form-input-label';
-    labelInputArea.textContent = labelValue;
-  }
-
-  const inputAreaContainer = document.createElement('div');
-  inputAreaContainer.className = 'simple-form simple-form-input-container';
-
-  if (!!labelInputArea) inputAreaContainer.appendChild(labelInputArea)
-  inputAreaContainer.appendChild(newInputArea)
-  form.appendChild(inputAreaContainer);
-}
-
-function addCheckBox(form, labelValue, labelSide) {
-  const newCheckBox = document.createElement('input');
-  newCheckBox.type = 'checkbox';
-  newCheckBox.className = `simple-form simple-form-input-area-checkbox`;
-  
-  const newLabelSide = labelSide || 'left';
-  const newLabel = labelValue || '';
-
-  const checkBoxContainer = document.createElement('div')
-  checkBoxContainer.className = 'simple-form simple-form-input-container';
-
-  if (newLabel !== '') {
-    const checkBoxLabel = document.createElement('label');
-    checkBoxLabel.textContent = newLabel;
-
-    if (newLabelSide === 'right') {
-      checkBoxContainer.appendChild(newCheckBox);
-      checkBoxContainer.appendChild(checkBoxLabel);
-    } else {
-      checkBoxContainer.appendChild(checkBoxLabel);
-      checkBoxContainer.appendChild(newCheckBox);
-    }
-  } else {
-    checkBoxContainer.appendChild(newCheckBox);
-  }
-
-  form.appendChild(checkBoxContainer);
-}
-
-function addNumberPicker(form, labelValue) {
-  const numberPicker = document.createElement('input');
-  numberPicker.type = 'number';
-  numberPicker.className = `simple-form simple-form-input-area-number`;
-
-  let labelInputArea;
-  if (!!labelValue) {
-    labelInputArea = document.createElement('label');
-    labelInputArea.className = 'simple-form simple-form-input-label';
-    labelInputArea.textContent = labelValue;
-  }
-
-  const inputAreaContainer = document.createElement('div');
-  inputAreaContainer.className = 'simple-form simple-form-input-container';
-
-  if (!!labelInputArea) inputAreaContainer.appendChild(labelInputArea)
-  inputAreaContainer.appendChild(numberPicker)
-  form.appendChild(inputAreaContainer);
+  return newForm;
 }
 
 function addStyle(item, styles) {
   item.className = item.className.concat(' ', styles);
 }
 
-function addSubmitButton(form, buttonText, onClickFunction) {
-  const newSubmitButton = document.createElement('input');
-  newSubmitButton.type = 'submit';
-  newSubmitButton.value = buttonText || '';
-  newSubmitButton.className = 'simple-form simple-form-button';
-
-  const buttonContainer = document.createElement('div');
-  buttonContainer.className = 'simple-form simple-form-button-container';
-
-  buttonContainer.appendChild(newSubmitButton);
-  // Add submit div, and add styling.
-  form.appendChild(buttonContainer);
-  form.addEventListener('submit', onClickFunction);
-}
-
-
-// This id determines where the form will be placed.
-function addFormToPage(id, form) {
-  document.querySelector(`#${id}`).appendChild(form);
-}
-
-// const formsOnPage = document.querySelectorAll('.simple-form');
-// console.log(formsOnPage);
-
-
-// Input - Textboxes, Password, Email...
 // Dropdown
-// Checkbox
-// Submit
 
