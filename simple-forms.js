@@ -10,8 +10,8 @@ class Form {
     this.formElements.push(newInputArea);
   }
 
-  addCheckBox(form, labelValue, labelSide) {
-    const newCheckBox = new Checkbox(form, labelValue, labelSide);
+  addCheckBox(labelValue, labelSide) {
+    const newCheckBox = new Checkbox(labelValue, labelSide);
     this.formElements.push(newCheckBox);
   }
 
