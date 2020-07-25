@@ -1,19 +1,59 @@
-<!doctype html>
+<!DOCTYPE html>
 
 <html lang="en">
-<head>
-  <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8">
 
-  <title>SimpleForms.js</title>
-  <meta name="description" content="SimpleForms.js Page">
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="simple-forms.css">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
-</head>
+    <title>SimpleForms.js</title>
+    <meta name="description" content="SimpleForms.js Page">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="simple-forms.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
+    <script src="simple-forms.js"></script>
+  </head>
 
-<body>
-  <script src="simple-forms.js"></script>
-  <div id="hello"></div>
-  <script src="examples.js"></script>
-</body>
+  <body>
+    <div class="header">
+      <h1>SimpleForms.js</h1>
+      <h2>Welcome to the SimpleForms.js library page! <br>
+        SimpleForm.js is the newest and easiest way to work with forms in your web app!
+      </h2>
+    </div>
+    <div class="examples">
+      <div>
+        <p>This website will walk you through the library and show you the potential of using the library.</p>
+      </div>
+
+      <div class="login-form-example">
+        <p>Here is an example of a login page developed using the library.</p>
+      </div>
+      <div id="login-form">
+        <!-- The form will be placed here by the library. -->
+      </div>
+      <div class="code-snippet">
+        <pre>
+          <code class="code-snippet-login-form">
+            const newForm = createForm('New Form');
+            newForm.addInputArea('text', 'Name', 'Enter your name here');
+            newForm.addInputArea('email', 'Username', 'Email');
+            newForm.addInputArea('password', 'Enter Password here', 'Password');
+            newForm.addSubmitButton('Submit', function(e) {
+              e.preventDefault();
+              console.log(newForm.getFormData());
+            });
+            newForm.buildForm('login-form');
+          </code>
+        </pre>
+      </div>
+
+      <div class="multiple-choice-example">
+        Here is an example of a M/C question developed using the library.  Multiple of these forms can be chained together to get an entire quiz. 
+      </div>
+
+      <div id="multiple-choice">
+        <!--  The form will be placed here by the library. -->
+      </div>
+    </div>
+    <script src="examples.js"></script>
+  </body>
 </html>
