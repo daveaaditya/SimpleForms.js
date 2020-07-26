@@ -53,6 +53,33 @@
       <div id="multiple-choice">
         <!--  The form will be placed here by the library. -->
       </div>
+
+      <div class="code-snippet">
+        <pre>
+          <code class="code-snippet-mc">
+            const MC = createForm('MC');
+            MC.addText('What is 3 + 3?');
+            MC.addCheckbox('4', 'right');
+            MC.addCheckbox('6', 'right');
+            MC.addCheckbox('3', 'right');
+            MC.addCheckbox('5', 'right');
+            MC.addSubmitButton('Check answer', function(e) {
+              e.preventDefault();
+              const MCSubmission = MC.getFormData();
+            
+              if (MCSubmission[0] === false &&
+                  MCSubmission[1] === true &&
+                  MCSubmission[2] === false &&
+                  MCSubmission[3] === false) {
+                MC.addStyle('green-bd');
+              } else {
+                MC.addStyle('red-bd');
+              }
+            });
+            MC.buildForm('multiple-choice');
+          </code>
+        </pre>
+      </div>
     </div>
     <script src="examples.js"></script>
   </body>
