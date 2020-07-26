@@ -25,6 +25,11 @@ class Form {
     this.formElements.push(newSubmitButton);
   }
 
+  addText(text) {
+    const newText = new Text(text);
+    this.formElements.push(newText);
+  }
+
   createDOMElement() {
     const form = document.createElement('form');
     form.className = 'simple-form simple-form-container';
@@ -34,7 +39,7 @@ class Form {
   addStyle(styles) {
     if (!!this.id) {
       const formElement = document.querySelector(`#${this.id}`).querySelector('form');
-      formElement.className = formElement.className.concat(' ', styles);
+      formElement.className = `simple-form simple-form-container ${styles}`;
     }
   }
 
@@ -184,6 +189,25 @@ class SubmitButton {
     form.addEventListener('submit', this.onClickFunction);
 
     return buttonContainer;
+  }
+}
+
+class Text {
+  constructor(text) {
+    this.text = text || '';
+  }
+
+  createDOMElement() {
+    const newText = document.createElement('p');
+    newText.textContent = this.text;
+    newText.className = 'simple-form simple-form-text';
+
+    const textContainer = document.createElement('div');
+    textContainer.className = 'simple-form simple-form-text-container';
+
+    textContainer.appendChild(newText);
+    
+    return textContainer;
   }
 }
 

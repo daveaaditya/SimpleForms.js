@@ -9,6 +9,7 @@ newForm.addSubmitButton('Submit', function(e) {
 newForm.buildForm('login-form');
 
 const MC = createForm('MC');
+MC.addText('What is 3 + 3?');
 MC.addCheckbox('4', 'right');
 MC.addCheckbox('6', 'right');
 MC.addCheckbox('3', 'right');
