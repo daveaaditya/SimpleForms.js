@@ -31,6 +31,13 @@ class Form {
     return form;
   }
 
+  addStyle(styles) {
+    if (!!this.id) {
+      const formElement = document.querySelector(`#${this.id}`).querySelector('form');
+      formElement.className = formElement.className.concat(' ', styles);
+    }
+  }
+
   buildForm(id) {
     const form = this.createDOMElement();
     this.id = id;
@@ -183,10 +190,6 @@ class SubmitButton {
 function createForm(formName) {
   const newForm = new Form(formName);
   return newForm;
-}
-
-function addStyle(item, styles) {
-  item.className = item.className.concat(' ', styles);
 }
 
 // Dropdown
