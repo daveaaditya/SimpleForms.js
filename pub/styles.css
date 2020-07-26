@@ -15,6 +15,13 @@ body, html, head {
   padding: 24px;
 }
 
+#success-button {
+  text-align: center;
+}
+.success-text {
+  margin: 0 auto;
+}
+
 .code-snipet {
   margin: 0 auto;
 }

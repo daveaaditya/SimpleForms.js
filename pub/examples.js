@@ -14,6 +14,7 @@ newForm.addSubmitButton('Submit', function(e) {
     loggedIn = true;
     const successText = document.createElement('h1');
     successText.textContent = 'You logged in!';
+    successText.className = 'success-text';
     const successTextContainer = document.querySelector('#success-button');
     successTextContainer.appendChild(successText);
   } else {
