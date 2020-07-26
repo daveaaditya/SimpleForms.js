@@ -42,10 +42,12 @@
    These should be modified later to provide the user with
    colours of their choice or custom colours.
 */
-.red {
-  background-color: red;
+.red-bd {
+  border-color: red;
+  box-shadow: 0 1px 5px red;
 }
 
-.blue {
-  background-color: blue;
+.green-bd {
+  border-color: green;
+  box-shadow: 0 1px 5px green;
 }
