@@ -25,21 +25,44 @@
       </div>
 
       <div class="login-form-example">
-        <p>Here is an example of a login page developed using the library.</p>
+        <p>Here is an example of a login page developed using the library. 
+           Try logging in with the credentials of name: User, email: user@email.com, password: user-test. <br>
+           This example is meant to show you how you, the user, can add any functionality for your form!</p>
       </div>
       <div id="login-form">
         <!-- The form will be placed here by the library. -->
+      </div>
+      <div id="success-button">
+        <!-- Added here by examples.js -->
       </div>
       <div class="code-snippet">
         <pre>
           <code class="code-snippet-login-form">
             const newForm = createForm('New Form');
+            let loggedIn = false;
             newForm.addInputArea('text', 'Name', 'Enter your name here');
             newForm.addInputArea('email', 'Username', 'Email');
             newForm.addInputArea('password', 'Enter Password here', 'Password');
             newForm.addSubmitButton('Submit', function(e) {
               e.preventDefault();
-              console.log(newForm.getFormData());
+              const formData = newForm.getFormData()
+
+              if (formData[0] === 'User' &&
+                  formData[1] === 'user@email.com' &&
+                  formData[2] === 'user-test') {
+                if (loggedIn === true) return;
+                loggedIn = true;
+                const successText = document.createElement('h1');
+                successText.textContent = 'You logged in!';
+                const successTextContainer = document.querySelector('#success-button');
+                successTextContainer.appendChild(successText);
+              } else {
+                if (!loggedIn) return;
+                loggedIn = false;
+                const successTextContainer = document.querySelector('#success-button');
+                const successText = successTextContainer.querySelector('h1');
+                successTextContainer.removeChild(successText);
+              }
             });
             newForm.buildForm('login-form');
           </code>
