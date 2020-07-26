@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>SimpleForms.js</title>
+    <meta name="description" content="SimpleForms.js Page">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="simple-forms.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
+    <script src="simple-forms.js"></script>
+  </head>
+
+  <body>
+    <div class="header">
+      <h1>SimpleForms.js</h1>
+      <h2>Welcome to the SimpleForms.js library page! <br>
+        SimpleForm.js is the newest and easiest way to work with forms in your web app!
+      </h2>
+    </div>
+    <div class="examples">
+      <div>
+        <p>This website will walk you through the library and show you the potential of using the library.</p>
+      </div>
+
+      <div class="login-form-example">
+        <p>Here is an example of a login page developed using the library. 
+           Try logging in with the credentials of name: User, email: user@email.com, password: user-test. <br>
+           This example is meant to show you how you, the user, can add any functionality for your form!</p>
+      </div>
+      <div id="login-form">
+        <!-- The form will be placed here by the library. -->
+      </div>
+      <div id="success-button">
+        <!-- Added here by examples.js -->
+      </div>
+      <div class="code-snippet">
+        <pre>
+          <code class="code-snippet-login-form">
+            const newForm = createForm('New Form');
+            let loggedIn = false;
+            newForm.addInputArea('text', 'Name', 'Enter your name here');
+            newForm.addInputArea('email', 'Username', 'Email');
+            newForm.addInputArea('password', 'Enter Password here', 'Password');
+            newForm.addSubmitButton('Submit', function(e) {
+              e.preventDefault();
+              const formData = newForm.getFormData()
+
+              if (formData[0] === 'User' &&
+                  formData[1] === 'user@email.com' &&
+                  formData[2] === 'user-test') {
+                if (loggedIn === true) return;
+                loggedIn = true;
+                const successText = document.createElement('h1');
+                successText.textContent = 'You logged in!';
+                const successTextContainer = document.querySelector('#success-button');
+                successTextContainer.appendChild(successText);
+              } else {
+                if (!loggedIn) return;
+                loggedIn = false;
+                const successTextContainer = document.querySelector('#success-button');
+                const successText = successTextContainer.querySelector('h1');
+                successTextContainer.removeChild(successText);
+              }
+            });
+            newForm.buildForm('login-form');
+          </code>
+        </pre>
+      </div>
+
+      <div class="multiple-choice-example">
+        Here is an example of a M/C question developed using the library.  Multiple of these forms can be chained together to get an entire quiz. 
+      </div>
+
+      <div id="multiple-choice">
+        <!--  The form will be placed here by the library. -->
+      </div>
+
+      <div class="code-snippet">
+        <pre>
+          <code class="code-snippet-mc">
+            const MC = createForm('MC');
+            MC.addText('What is 3 + 3?');
+            MC.addCheckbox('4', 'right');
+            MC.addCheckbox('6', 'right');
+            MC.addCheckbox('3', 'right');
+            MC.addCheckbox('5', 'right');
+            MC.addSubmitButton('Check answer', function(e) {
+              e.preventDefault();
+              const MCSubmission = MC.getFormData();
+            
+              if (MCSubmission[0] === false &&
+                  MCSubmission[1] === true &&
+                  MCSubmission[2] === false &&
+                  MCSubmission[3] === false) {
+                MC.addStyle('green-bd');
+              } else {
+                MC.addStyle('red-bd');
+              }
+            });
+            MC.buildForm('multiple-choice');
+          </code>
+        </pre>
+      </div>
+    </div>
+    <script src="examples.js"></script>
+  </body>
+</html>

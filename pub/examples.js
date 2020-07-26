@@ -1,14 +1,33 @@
 const newForm = createForm('New Form');
+let loggedIn = false;
 newForm.addInputArea('text', 'Name', 'Enter your name here');
 newForm.addInputArea('email', 'Username', 'Email');
 newForm.addInputArea('password', 'Enter Password here', 'Password');
 newForm.addSubmitButton('Submit', function(e) {
   e.preventDefault();
-  console.log(newForm.getFormData());
+  const formData = newForm.getFormData()
+
+  if (formData[0] === 'User' &&
+      formData[1] === 'user@email.com' &&
+      formData[2] === 'user-test') {
+    if (loggedIn === true) return;
+    loggedIn = true;
+    const successText = document.createElement('h1');
+    successText.textContent = 'You logged in!';
+    const successTextContainer = document.querySelector('#success-button');
+    successTextContainer.appendChild(successText);
+  } else {
+    if (!loggedIn) return;
+    loggedIn = false;
+    const successTextContainer = document.querySelector('#success-button');
+    const successText = successTextContainer.querySelector('h1');
+    successTextContainer.removeChild(successText);
+  }
 });
 newForm.buildForm('login-form');
 
 const MC = createForm('MC');
+MC.addText('What is 3 + 3?');
 MC.addCheckbox('4', 'right');
 MC.addCheckbox('6', 'right');
 MC.addCheckbox('3', 'right');
