@@ -211,6 +211,32 @@ class Text {
   }
 }
 
+class Dropdown {
+  constructor(dropdownText, dropdownItems) {
+    this.dropdownText = dropdownText;
+    this.dropdownItems = dropdownItems;
+  }
+
+  createDOMElement() {
+    const dropdownDiv = document.createElement('div');
+    const dropdownButton = document.createElement('button');
+    dropdownButton.textContent = this.dropdownText;
+    
+    const dropdownContentDiv = document.createElement('div');
+
+    const dropdownContent = this.dropdownItems.reduce(function(content, item) {
+      const itemAnchor = document.createElement('a');
+      itemAnchor.href = '#';
+      content.appendChild(itemAnchor);
+    }, dropdownContentDiv);
+
+    dropdownDiv.appendChild(dropdownButton);
+    dropdownDiv.appendChild(dropdownContent);
+
+    return dropdownDiv;
+  }
+}
+
 function createForm(formName) {
   const newForm = new Form(formName);
   return newForm;
