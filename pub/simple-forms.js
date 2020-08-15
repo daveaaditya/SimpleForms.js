@@ -3,6 +3,7 @@ class Form {
     this.formName = formName;
     this.formElements = [];
     this.id = '';
+    this.dropdownIdNumber = 0;
   }
 
   addInputArea(type, inputAreaPlaceholder, labelValue) {
@@ -28,6 +29,12 @@ class Form {
   addText(text) {
     const newText = new Text(text);
     this.formElements.push(newText);
+  }
+
+  addDropdown(dropdownText, dropdownItems) {
+    const newDropdown = new Dropdown(dropdownText, dropdownItems, this.dropdownIdNumber);
+    this.dropdownIdNumber++;
+    this.formElements.push(newDropdown);
   }
 
   createDOMElement() {
@@ -212,22 +219,50 @@ class Text {
 }
 
 class Dropdown {
-  constructor(dropdownText, dropdownItems) {
+  constructor(dropdownText, dropdownItems, dropdownIdNumber) {
     this.dropdownText = dropdownText;
     this.dropdownItems = dropdownItems;
+    this.dropdownIdNumber = dropdownIdNumber;
+    this.dropdownPick = null;
+  }
+
+  dropdownPickItem(itemPick) {
+    event.preventDefault();
+    this.dropdownPick = itemPick;
+    console.log(this);
+  }
+
+  dropdownButtonOnClick() {
+    event.preventDefault();
+
+    const dropdownDiv = document.getElementById(`simple-form-dropdown-button-${this.dropdownIdNumber}`);
+    // const dropdownContent = 
+
+    
+    console.log('Here');
   }
 
   createDOMElement() {
     const dropdownDiv = document.createElement('div');
+    dropdownDiv.className = 'simple-form simple-form-dropdown-container';
+    dropdownDiv.id = `simple-form-dropdown-button-${this.dropdownIdNumber}`;
+
     const dropdownButton = document.createElement('button');
+    dropdownButton.onclick = () => { this.dropdownButtonOnClick(); };
+
     dropdownButton.textContent = this.dropdownText;
     
+    const object = this;
     const dropdownContentDiv = document.createElement('div');
+    dropdownContentDiv.className = 'simple-form simple-form-dropdown-content-container';
 
     const dropdownContent = this.dropdownItems.reduce(function(content, item) {
       const itemAnchor = document.createElement('a');
       itemAnchor.href = '#';
+      itemAnchor.textContent = item;
+      itemAnchor.onclick = () => { object.dropdownPickItem(item) };
       content.appendChild(itemAnchor);
+      return content;
     }, dropdownContentDiv);
 
     dropdownDiv.appendChild(dropdownButton);
