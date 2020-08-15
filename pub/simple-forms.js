@@ -229,32 +229,64 @@ class Dropdown {
   dropdownPickItem(itemPick) {
     event.preventDefault();
     this.dropdownPick = itemPick;
-    console.log(this);
+    
+    const dropdownContent = document.getElementById(`simple-form-dropdown-content-${this.dropdownIdNumber}`);
+    const dropdownButton = document.getElementById(`simple-form-dropdown-button-${this.dropdownIdNumber}`);
+    dropdownButton.textContent = itemPick;
+    
+    dropdownButton.onclick = () => { this.dropdownButtonOnClick(); };
+
+    dropdownContent.classList.remove('show');
+    dropdownContent.classList.add('hide');
   }
 
   dropdownButtonOnClick() {
     event.preventDefault();
 
-    const dropdownDiv = document.getElementById(`simple-form-dropdown-button-${this.dropdownIdNumber}`);
-    // const dropdownContent = 
+    const dropdownDiv = document.getElementById(`simple-form-dropdown-container-${this.dropdownIdNumber}`);
+    const dropdownButton = document.getElementById(`simple-form-dropdown-button-${this.dropdownIdNumber}`);
+    const dropdownContent = document.getElementById(`simple-form-dropdown-content-${this.dropdownIdNumber}`);
 
-    
-    console.log('Here');
+    dropdownContent.classList.remove('hide');
+    dropdownContent.classList.add('show');
+
+    dropdownButton.onclick = () => { this.dropdownButtonClickOff(); };
+  }
+
+  dropdownButtonClickOff(dropdownIdNumber) {
+    event.preventDefault();
+
+    const dropdownDiv = document.getElementById(`simple-form-dropdown-container-${dropdownIdNumber}`);
+    const dropdownButton = document.getElementById(`simple-form-dropdown-button-${dropdownIdNumber}`);
+    const dropdownContent = document.getElementById(`simple-form-dropdown-content-${dropdownIdNumber}`);
+    const elementClicked = document.elementFromPoint(event.clientX, event.clientY);
+
+    if (elementClicked !== dropdownDiv && 
+        elementClicked !== dropdownButton &&
+        elementClicked !== dropdownContent) {
+      dropdownContent.classList.remove('show');
+      dropdownContent.classList.add('hide');
+    }
+
+    dropdownButton.onclick = () => { this.dropdownButtonOnClick(); };
   }
 
   createDOMElement() {
     const dropdownDiv = document.createElement('div');
     dropdownDiv.className = 'simple-form simple-form-dropdown-container';
-    dropdownDiv.id = `simple-form-dropdown-button-${this.dropdownIdNumber}`;
+    dropdownDiv.id = `simple-form-dropdown-container-${this.dropdownIdNumber}`;
 
     const dropdownButton = document.createElement('button');
     dropdownButton.onclick = () => { this.dropdownButtonOnClick(); };
-
+    dropdownButton.id = `simple-form-dropdown-button-${this.dropdownIdNumber}`
     dropdownButton.textContent = this.dropdownText;
+
+    document.addEventListener('click', () => this.dropdownButtonClickOff(this.dropdownIdNumber));
     
     const object = this;
     const dropdownContentDiv = document.createElement('div');
-    dropdownContentDiv.className = 'simple-form simple-form-dropdown-content-container';
+    dropdownContentDiv.className = 'simple-form simple-form-dropdown-content-container hide';
+    dropdownContentDiv.id = `simple-form-dropdown-content-${this.dropdownIdNumber}`;
 
     const dropdownContent = this.dropdownItems.reduce(function(content, item) {
       const itemAnchor = document.createElement('a');
@@ -276,6 +308,3 @@ function createForm(formName) {
   const newForm = new Form(formName);
   return newForm;
 }
-
-// Dropdown
-
