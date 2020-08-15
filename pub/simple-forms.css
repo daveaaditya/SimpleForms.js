@@ -55,3 +55,11 @@
   border-color: green;
   box-shadow: 0 1px 5px green;
 }
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
