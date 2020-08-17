@@ -42,6 +42,55 @@
   margin: 24px;
 }
 
+.simple-form-dropdown-container {
+  padding: 24px;
+  display: inline-block;
+}
+
+.simple-form-dropdown-button {
+  padding: 12px;
+  min-width: 200px;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 4px;
+  /* margin: 0 auto; */
+}
+
+.simple-form-dropdown-content-container {
+  background-color: #dce3e8;
+  /* margin: 4px; */
+  border-width: 10px;
+  color: black;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: absolute;
+}
+
+.simple-form-dropdown-item {
+  text-decoration: none;
+  display: block;
+  margin: 0 auto;
+  padding: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+
+.simple-form-dropdown-item:hover {
+  background-color:#979ba1;
+}
+
+.simple-form-dropdown-item:active {
+  text-decoration: none;
+}
+
+.simple-form-dropdown-item:visited {
+  text-decoration: none;
+}
+
 /* This is the set of colours available for the app.
    These should be modified later to provide the user with
    colours of their choice or custom colours.
