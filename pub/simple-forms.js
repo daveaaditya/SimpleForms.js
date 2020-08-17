@@ -224,6 +224,7 @@ class Dropdown {
     this.dropdownItems = dropdownItems;
     this.dropdownIdNumber = dropdownIdNumber;
     this.dropdownPick = null;
+    this.opened = false;
   }
 
   dropdownPickItem(itemPick) {
@@ -234,10 +235,11 @@ class Dropdown {
     const dropdownButton = document.getElementById(`simple-form-dropdown-button-${this.dropdownIdNumber}`);
     dropdownButton.textContent = itemPick;
     
-    dropdownButton.onclick = () => { this.dropdownButtonOnClick(); };
+    this.dropdownButtonOnClick();
+    // dropdownButton.onclick = () => { this.dropdownButtonOnClick(); };
 
-    dropdownContent.classList.remove('show');
-    dropdownContent.classList.add('hide');
+    // dropdownContent.classList.remove('show');
+    // dropdownContent.classList.add('hide');
   }
 
   dropdownButtonOnClick() {
@@ -247,10 +249,15 @@ class Dropdown {
     const dropdownButton = document.getElementById(`simple-form-dropdown-button-${this.dropdownIdNumber}`);
     const dropdownContent = document.getElementById(`simple-form-dropdown-content-${this.dropdownIdNumber}`);
 
-    dropdownContent.classList.remove('hide');
-    dropdownContent.classList.add('show');
-
-    dropdownButton.onclick = () => { this.dropdownButtonClickOff(); };
+    if (this.opened) {
+      dropdownContent.classList.remove('show');
+      dropdownContent.classList.add('hide');
+      this.opened = false;
+    } else {
+      dropdownContent.classList.remove('hide');
+      dropdownContent.classList.add('show');
+      this.opened = true;
+    }
   }
 
   dropdownButtonClickOff(dropdownIdNumber) {
@@ -261,14 +268,18 @@ class Dropdown {
     const dropdownContent = document.getElementById(`simple-form-dropdown-content-${dropdownIdNumber}`);
     const elementClicked = document.elementFromPoint(event.clientX, event.clientY);
 
-    if (elementClicked !== dropdownDiv && 
-        elementClicked !== dropdownButton &&
-        elementClicked !== dropdownContent) {
+    // if (elementClicked !== dropdownDiv && 
+    //     elementClicked !== dropdownButton &&
+    //     elementClicked !== dropdownContent) {
+    //   dropdownContent.classList.remove('show');
+    //   dropdownContent.classList.add('hide');
+    // }
+
+    if (elementClicked !== dropdownButton) {
       dropdownContent.classList.remove('show');
       dropdownContent.classList.add('hide');
+      this.opened = false;
     }
-
-    dropdownButton.onclick = () => { this.dropdownButtonOnClick(); };
   }
 
   createDOMElement() {
@@ -278,6 +289,7 @@ class Dropdown {
 
     const dropdownButton = document.createElement('button');
     dropdownButton.onclick = () => { this.dropdownButtonOnClick(); };
+    dropdownButton.className = 'simple-form simple-form-dropdown-button';
     dropdownButton.id = `simple-form-dropdown-button-${this.dropdownIdNumber}`
     dropdownButton.textContent = this.dropdownText;
 
@@ -292,6 +304,7 @@ class Dropdown {
       const itemAnchor = document.createElement('a');
       itemAnchor.href = '#';
       itemAnchor.textContent = item;
+      itemAnchor.className = 'simple-form simple-form-dropdown-item';
       itemAnchor.onclick = () => { object.dropdownPickItem(item) };
       content.appendChild(itemAnchor);
       return content;
