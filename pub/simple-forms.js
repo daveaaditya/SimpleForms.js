@@ -236,10 +236,6 @@ class Dropdown {
     dropdownButton.textContent = itemPick;
     
     this.dropdownButtonOnClick();
-    // dropdownButton.onclick = () => { this.dropdownButtonOnClick(); };
-
-    // dropdownContent.classList.remove('show');
-    // dropdownContent.classList.add('hide');
   }
 
   dropdownButtonOnClick() {
@@ -315,6 +311,10 @@ class Dropdown {
 
     return dropdownDiv;
   }
+}
+
+class Grouping {
+  
 }
 
 function createForm(formName) {
