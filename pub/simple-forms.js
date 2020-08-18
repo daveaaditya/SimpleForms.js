@@ -37,6 +37,10 @@ class Form {
     this.formElements.push(newDropdown);
   }
 
+  addGrouping(grouping) {
+    this.formElements.push(grouping);
+  }
+
   createDOMElement() {
     const form = document.createElement('form');
     form.className = 'simple-form simple-form-container';
@@ -53,6 +57,7 @@ class Form {
   buildForm(id) {
     const form = this.createDOMElement();
     this.id = id;
+    
     const completeForm = this.formElements.reduce(function (currentForm, formItem) {
       if (formItem.constructor.name === 'SubmitButton') {
         currentForm.appendChild(formItem.createDOMElement(currentForm));
@@ -333,13 +338,39 @@ class Dropdown {
   }
 }
 
-class Grouping {
-  constructor() {
-    
+class Grouping extends Form {
+  constructor(groupingName) {
+    super(groupingName);
+  }
+
+  createDOMElement() {
+    const groupingContainer = document.createElement('div'); 
+    groupingContainer.className = 'simple-form simple-form-grouping';
+
+    const grouping = this.formElements.reduce(function (currentForm, formItem) {
+      if (formItem.constructor.name === 'SubmitButton') {
+        currentForm.appendChild(formItem.createDOMElement(currentForm));
+      } else {
+        currentForm.appendChild(formItem.createDOMElement());
+      }
+
+      return currentForm;
+    }, groupingContainer);
+
+    return grouping;
+  }
+
+  getGroupingData(formId) {
+
   }
 }
 
 function createForm(formName) {
   const newForm = new Form(formName);
   return newForm;
+}
+
+function createGrouping(groupingName) {
+  const newGrouping = new Grouping(groupingName);
+  return newGrouping;
 }
