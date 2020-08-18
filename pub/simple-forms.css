@@ -17,6 +17,14 @@
   margin: 24px;
 }
 
+.simple-form-checkbox-container {
+  margin: 24px;
+}
+
+.simple-form-number-container {
+  margin: 24px;
+}
+
 .simple-form-input-area-email, 
 .simple-form-input-area-password, 
 .simple-form-input-area-text {
