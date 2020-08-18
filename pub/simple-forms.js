@@ -6,8 +6,8 @@ class Form {
     this.dropdownIdNumber = 0;
   }
 
-  addInputArea(type, inputAreaPlaceholder, labelValue) {
-    const newInputArea = new InputTextArea(type, inputAreaPlaceholder, labelValue);
+  addInputArea(type, inputAreaPlaceholder, labelValue, validator, validationMessage) {
+    const newInputArea = new InputTextArea(type, inputAreaPlaceholder, labelValue, validator, validationMessage);
     this.formElements.push(newInputArea);
   }
 
@@ -87,10 +87,28 @@ class Form {
 }
 
 class InputTextArea {
-  constructor(type, inputAreaPlaceholder, labelValue) {
+  constructor(type, inputAreaPlaceholder, labelValue, validator, validationMessage) {
     this.type = type || 'text';
     this.placeholder = inputAreaPlaceholder || '';
     this.labelValue = labelValue || '';
+    console.log(validator);
+    this.validator = validator || null; // Replace with type of validator.
+    this.validationMessage = validationMessage || '';
+  }
+
+  validateText() {
+    const inputArea = event.target;
+    const inputText = inputArea.value + String.fromCharCode(event.which);
+
+    if (this.validator === null) {
+      return;
+    }
+
+    if (!this.validator.test(inputText)) {
+      inputArea.classList.add('red-bd');
+    } else {
+      inputArea.classList.remove('red-bd');
+    }
   }
 
   createDOMElement() {
@@ -100,7 +118,9 @@ class InputTextArea {
     newInputArea.placeholder = this.placeholder;
   
     newInputArea.className = `simple-form simple-form-input-area-${this.type}`
-  
+    
+    newInputArea.addEventListener('keypress', () => { this.validateText() });
+
     let labelInputArea;
     if (!!this.labelValue) {
       labelInputArea = document.createElement('label');
@@ -314,7 +334,9 @@ class Dropdown {
 }
 
 class Grouping {
-  
+  constructor() {
+    
+  }
 }
 
 function createForm(formName) {

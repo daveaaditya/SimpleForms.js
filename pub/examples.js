@@ -1,6 +1,6 @@
 const newForm = createForm('New Form');
 let loggedIn = false;
-newForm.addInputArea('text', 'Name', 'Enter your name here');
+newForm.addInputArea('text', 'Name', 'Enter your name here', RegExp('test'));
 newForm.addInputArea('email', 'Username', 'Email');
 newForm.addInputArea('password', 'Enter Password here', 'Password');
 newForm.addDropdown('test dropdown', ['one', 'two', 'three', 'Heeeeeeeeeeeeeellllloooooooooo']);
