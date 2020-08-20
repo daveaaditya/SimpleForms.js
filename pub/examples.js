@@ -30,12 +30,15 @@ newForm.addSubmitButton('Submit', function(e) {
 styles = {
   theme: {
     primary: 'grey',
-    secondary: 'white'
+    secondary: 'pink'
   },
   form: {
-    borderSize: '2px',
+    // borderSize: '2px',
     borderRadius: '20px',
-    borderColour: 'black'
+    // borderColour: 'black'
+  },
+  inputArea: {
+    borderRadius: '30px',
   },
   text: {
     textColour: 'white',

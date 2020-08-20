@@ -54,7 +54,7 @@ class Form {
     form.style.borderColor = styles.form.borderColour;
     form.style.color = styles.text.textColour;
     form.style.fontSize = styles.text.textSize;
-    
+
     // const formElement = document.querySelector(`#${this.id}`).querySelector('form');
     // formElement.className = `simple-form simple-form-container ${styles}`;
     return form;
@@ -63,7 +63,7 @@ class Form {
   createDOMElement(styles) {
     const form = document.createElement('form');
     form.className = 'simple-form simple-form-container';
-    // form.style.borderColor
+
     const styledForm = this.addStyles(form, styles);
 
     return styledForm;
@@ -142,13 +142,32 @@ class InputTextArea {
     }
   }
 
-  createDOMElement() {
+  addStyles(input, styles) {
+    if (!styles || !styles.theme || !styles.text || !styles.inputArea) {
+      return input;
+    }
+
+    input.style.color = styles.text.textColour;
+    input.style.fontSize = styles.text.textSize;
+    input.style.padding = styles.inputArea.padding;
+    input.style.margin = styles.inputArea.margin;
+
+    const inputField = input.querySelector('input');
+    
+    inputField.style.borderWidth = styles.inputArea.borderSize;
+    inputField.style.borderRadius = styles.inputArea.borderRadius;
+    inputField.style.backgroundColor = styles.theme.secondary;
+    
+    return input;
+  }
+
+  createDOMElement(styles) {
     const newInputArea = document.createElement('input');
     
     newInputArea.type = this.type;
     newInputArea.placeholder = this.placeholder;
   
-    newInputArea.className = `simple-form simple-form-input-area-${this.type}`
+    newInputArea.className = `simple-form simple-form-input-area-${this.type}`;
     
     newInputArea.addEventListener('keydown', () => { this.validateText() });
 
@@ -163,8 +182,11 @@ class InputTextArea {
     inputAreaContainer.className = 'simple-form simple-form-input-container';
   
     if (!!labelInputArea) inputAreaContainer.appendChild(labelInputArea)
-    inputAreaContainer.appendChild(newInputArea)
-    return inputAreaContainer;
+    inputAreaContainer.appendChild(newInputArea);
+
+    const styledInputAreaContainer = this.addStyles(inputAreaContainer, styles);
+
+    return styledInputAreaContainer;
   }
 }
 
