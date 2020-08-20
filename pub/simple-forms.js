@@ -40,29 +40,45 @@ class Form {
   addGrouping(grouping) {
     this.formElements.push(grouping);
   }
+  
+  addStyles(form, styles) {
+    if (!styles || !styles.theme || !styles.text || !styles.form) {
+      return form;
+    }
 
-  createDOMElement() {
-    const form = document.createElement('form');
-    form.className = 'simple-form simple-form-container';
+    form.style.backgroundColor = styles.theme.primary;
+    form.style.borderWidth = styles.form.borderSize;
+    form.style.borderRadius = styles.form.borderRadius;
+    form.style.margin = styles.form.margin;
+    form.style.padding = styles.form.padding;
+    form.style.borderColor = styles.form.borderColour;
+    form.style.color = styles.text.textColour;
+    form.style.fontSize = styles.text.textSize;
+    
+    // const formElement = document.querySelector(`#${this.id}`).querySelector('form');
+    // formElement.className = `simple-form simple-form-container ${styles}`;
     return form;
   }
+  
+  createDOMElement(styles) {
+    const form = document.createElement('form');
+    form.className = 'simple-form simple-form-container';
+    // form.style.borderColor
+    const styledForm = this.addStyles(form, styles);
 
-  addStyle(styles) {
-    if (!!this.id) {
-      const formElement = document.querySelector(`#${this.id}`).querySelector('form');
-      formElement.className = `simple-form simple-form-container ${styles}`;
-    }
+    return styledForm;
   }
 
-  buildForm(id) {
-    const form = this.createDOMElement();
+
+  buildForm(id, styles) {
+    const form = this.createDOMElement(styles);
     this.id = id;
     
     const completeForm = this.formElements.reduce(function (currentForm, formItem) {
       if (formItem.constructor.name === 'SubmitButton') {
-        currentForm.appendChild(formItem.createDOMElement(currentForm));
+        currentForm.appendChild(formItem.createDOMElement(currentForm, styles));
       } else {
-        currentForm.appendChild(formItem.createDOMElement());
+        currentForm.appendChild(formItem.createDOMElement(styles));
       }
 
       return currentForm;
@@ -305,7 +321,7 @@ class Dropdown {
     //   dropdownContent.classList.remove('show');
     //   dropdownContent.classList.add('hide');
     // }
-    
+
     if (elementClicked !== dropdownButton) {
       dropdownContent.classList.remove('show');
       dropdownContent.classList.add('hide');
@@ -405,4 +421,50 @@ function createForm(formName) {
 function createGrouping(groupingName) {
   const newGrouping = new Grouping(groupingName);
   return newGrouping;
+}
+
+
+styles = {
+  theme: {
+    primary: '',
+    secondary: ''
+  },
+  form: {
+    borderSize: '',
+    borderRadius: '',
+    borderColour: '',
+    margin: '',
+    padding: ''
+  },
+  button: {
+    borderSize: '',
+    borderRadius: '',
+    margin: '',
+    padding: '',
+  },
+  inputArea: {
+    borderSize: '',
+    borderRadius: '',
+    padding: '',
+    margin: '',
+    errorColour: '',
+  },
+  text: {
+    textSize: '',
+    textColour: '',
+    padding: '',
+    margin: '',
+  },
+  checkbox: {
+    borderSize: '',
+    borderRadius: '',
+    padding: '',
+    margin: '',
+  },
+  dropdown: {
+    center: '',
+    highlight: '',
+    padding: '',
+    margin: ''
+  }
 }

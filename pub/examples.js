@@ -26,7 +26,23 @@ newForm.addSubmitButton('Submit', function(e) {
     successTextContainer.removeChild(successText);
   }
 });
-newForm.buildForm('login-form');
+
+styles = {
+  theme: {
+    primary: 'grey',
+    secondary: 'white'
+  },
+  form: {
+    borderSize: '2px',
+    borderRadius: '20px',
+    borderColour: 'black'
+  },
+  text: {
+    textColour: 'white',
+  }
+}
+
+newForm.buildForm('login-form', styles);
 
 const MC = createForm('MC');
 const MCGroup = createGrouping('MC Group');
