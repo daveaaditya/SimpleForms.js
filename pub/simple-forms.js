@@ -74,34 +74,29 @@ class Form {
   getFormData() {
     if (!!this.id) {
       const form = document.querySelector(`#${this.id}`);
-      const formInputs = form.querySelectorAll('div');
+      // const formInputs = form.querySelectorAll('div');
+      const formInputs = form.querySelector('form').childNodes;
 
-      // May need to remove submit button.
-      const formValues = []
+      const formValues = [];
       formInputs.forEach(function(element, index) {
         const containerClassList = element.classList;
-        
         if (containerClassList.contains('simple-form-input-container')) {
           const inputText = element.querySelector('input');
           formValues.push(inputText.value);
-        } else if (containerClassList.contains('simple-from-checkbox-container')) {
+        } else if (containerClassList.contains('simple-form-checkbox-container')) {
           const checkbox = element.querySelector('input');
           formValues.push(checkbox.checked);
-        } else if (containerClassList.contains('simple-from-number-container')) {
+        } else if (containerClassList.contains('simple-form-number-container')) {
           const numberPicker = element.querySelector('input');
           formValues.push(numberPicker.value);
-        } else if (containerClassList.contains('simple-from-dropdown-container')) {
+        } else if (containerClassList.contains('simple-form-dropdown-container')) {
           formValues.push(this.formElements[index].dropdownPick);
-        } else if (containerClassList.contains('simple-from-grouping')) {
-          formValues.push(this.formElements[index].getGroupingData());
+        } else if (containerClassList.contains('simple-form-grouping')) {
+          formValues.push(this.formElements[index].getGroupingData(element));
         }
-        // if (element.type === 'checkbox') {
-        //   formValues.push(element.checked);
-        // } else {
-        //   formValues.push(element.value);
-        // }
       }, this);
 
+      console.log(formValues);
       return formValues;
     }
   }
@@ -112,15 +107,14 @@ class InputTextArea {
     this.type = type || 'text';
     this.placeholder = inputAreaPlaceholder || '';
     this.labelValue = labelValue || '';
-    console.log(validator);
-    this.validator = validator || null; // Replace with type of validator.
+    this.validator = validator || null;
     this.validationMessage = validationMessage || '';
   }
 
   validateText() {
     const inputArea = event.target;
     const inputText = inputArea.value + String.fromCharCode(event.which);
-    console.log(inputText);
+    
     if (this.validator === null) {
       return;
     }
@@ -311,7 +305,7 @@ class Dropdown {
     //   dropdownContent.classList.remove('show');
     //   dropdownContent.classList.add('hide');
     // }
-    console.log(":)");
+    
     if (elementClicked !== dropdownButton) {
       dropdownContent.classList.remove('show');
       dropdownContent.classList.add('hide');
@@ -376,8 +370,30 @@ class Grouping extends Form {
     return grouping;
   }
 
-  getGroupingData(formId) {
+  getGroupingData(grouping) {
+    // const groupingInputs = grouping.querySelectorAll('div');
+    const groupingInputs = grouping.childNodes;
 
+    const groupValues = [];
+    groupingInputs.forEach(function(element, index) {
+      const containerClassList = element.classList;
+      if (containerClassList.contains('simple-form-input-container')) {
+        const inputText = element.querySelector('input');
+        groupValues.push(inputText.value);
+      } else if (containerClassList.contains('simple-form-checkbox-container')) {
+        const checkbox = element.querySelector('input');
+        groupValues.push(checkbox.checked);
+      } else if (containerClassList.contains('simple-form-number-container')) {
+        const numberPicker = element.querySelector('input');
+        groupValues.push(numberPicker.value);
+      } else if (containerClassList.contains('simple-form-dropdown-container')) {
+        groupValues.push(this.formElements[index].dropdownPick);
+      } else if (containerClassList.contains('simple-form-grouping')) {
+        groupValues.push(this.formElements[index].getGroupingData(element));
+      }
+    }, this)
+
+    return groupValues;
   }
 }
 
