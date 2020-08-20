@@ -29,11 +29,15 @@ newForm.addSubmitButton('Submit', function(e) {
 newForm.buildForm('login-form');
 
 const MC = createForm('MC');
-MC.addText('What is 3 + 3?');
-MC.addCheckbox('4', 'right');
-MC.addCheckbox('6', 'right');
-MC.addCheckbox('3', 'right');
-MC.addCheckbox('5', 'right');
+const MCGroup = createGrouping('MC Group');
+
+MCGroup.addText('What is 3 + 3?');
+MCGroup.addCheckbox('4', 'right');
+MCGroup.addCheckbox('6', 'right');
+MCGroup.addCheckbox('3', 'right');
+MCGroup.addCheckbox('5', 'right');
+MC.addGrouping(MCGroup);
+
 MC.addSubmitButton('Check answer', function(e) {
   e.preventDefault();
   const MCSubmission = MC.getFormData();
