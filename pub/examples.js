@@ -41,11 +41,12 @@ MC.addGrouping(MCGroup);
 MC.addSubmitButton('Check answer', function(e) {
   e.preventDefault();
   const MCSubmission = MC.getFormData();
-  console.log(MCSubmission);
-  if (MCSubmission[0] === false &&
-      MCSubmission[1] === true &&
-      MCSubmission[2] === false &&
-      MCSubmission[3] === false) {
+  console.log('Here');
+  console.log(MCSubmission[0]);
+  if (MCSubmission[0][0] === false &&
+      MCSubmission[0][1] === true &&
+      MCSubmission[0][2] === false &&
+      MCSubmission[0][3] === false) {
     MC.addStyle('green-bd');
   } else {
     MC.addStyle('red-bd');
