@@ -304,6 +304,19 @@ class Text {
     this.text = text || '';
   }
 
+  addStyles(text, styles) {
+    if (!styles || !styles.theme || !styles.text) {
+      return text;
+    }
+
+    text.style.color = styles.text.textColour;
+    text.style.fontSize = styles.text.textSize;
+    text.style.margin = styles.text.margin;
+    text.style.padding = styles.text.padding;
+
+    return text;
+  }
+
   createDOMElement(styles) {
     const newText = document.createElement('p');
     newText.textContent = this.text;
@@ -313,8 +326,10 @@ class Text {
     textContainer.className = 'simple-form simple-form-text-container';
 
     textContainer.appendChild(newText);
+
+    const styledText = this.addStyles(textContainer);
     
-    return textContainer;
+    return styledText;
   }
 }
 
