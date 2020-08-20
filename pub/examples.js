@@ -41,8 +41,6 @@ MC.addGrouping(MCGroup);
 MC.addSubmitButton('Check answer', function(e) {
   e.preventDefault();
   const MCSubmission = MC.getFormData();
-  console.log('Here');
-  console.log(MCSubmission[0]);
   if (MCSubmission[0][0] === false &&
       MCSubmission[0][1] === true &&
       MCSubmission[0][2] === false &&
