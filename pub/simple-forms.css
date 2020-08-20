@@ -52,7 +52,7 @@
 
 .simple-form-dropdown-container {
   padding: 24px;
-  display: inline-block;
+  /* display: block; */
 }
 
 .simple-form-dropdown-button {
@@ -62,12 +62,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   border-radius: 4px;
-  /* margin: 0 auto; */
+  margin: 0 auto;
 }
 
 .simple-form-dropdown-content-container {
   background-color: #dce3e8;
-  /* margin: 4px; */
+  margin: 0 auto;
   border-width: 10px;
   color: black;
   max-width: 200px;
