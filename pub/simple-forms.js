@@ -74,17 +74,33 @@ class Form {
   getFormData() {
     if (!!this.id) {
       const form = document.querySelector(`#${this.id}`);
-      const formInputs = form.querySelectorAll('input');
+      const formInputs = form.querySelectorAll('div');
 
       // May need to remove submit button.
       const formValues = []
-      formInputs.forEach(function(element) {
-        if (element.type === 'checkbox') {
-          formValues.push(element.checked);
-        } else {
-          formValues.push(element.value);
+      formInputs.forEach(function(element, index) {
+        const containerClassList = element.classList;
+        
+        if (containerClassList.contains('simple-form-input-container')) {
+          const inputText = element.querySelector('input');
+          formValues.push(inputText.value);
+        } else if (containerClassList.contains('simple-from-checkbox-container')) {
+          const checkbox = element.querySelector('input');
+          formValues.push(checkbox.checked);
+        } else if (containerClassList.contains('simple-from-number-container')) {
+          const numberPicker = element.querySelector('input');
+          formValues.push(numberPicker.value);
+        } else if (containerClassList.contains('simple-from-dropdown-container')) {
+          formValues.push(this.formElements[index].dropdownPick);
+        } else if (containerClassList.contains('simple-from-grouping')) {
+          formValues.push(this.formElements[index].getGroupingData());
         }
-      });
+        // if (element.type === 'checkbox') {
+        //   formValues.push(element.checked);
+        // } else {
+        //   formValues.push(element.value);
+        // }
+      }, this);
 
       return formValues;
     }
@@ -104,7 +120,7 @@ class InputTextArea {
   validateText() {
     const inputArea = event.target;
     const inputText = inputArea.value + String.fromCharCode(event.which);
-
+    console.log(inputText);
     if (this.validator === null) {
       return;
     }
@@ -124,7 +140,7 @@ class InputTextArea {
   
     newInputArea.className = `simple-form simple-form-input-area-${this.type}`
     
-    newInputArea.addEventListener('keypress', () => { this.validateText() });
+    newInputArea.addEventListener('keydown', () => { this.validateText() });
 
     let labelInputArea;
     if (!!this.labelValue) {
@@ -154,7 +170,7 @@ class Checkbox {
     newCheckBox.className = `simple-form simple-form-input-area-checkbox`;
 
     const checkBoxContainer = document.createElement('div')
-    checkBoxContainer.className = 'simple-form simple-form-input-container';
+    checkBoxContainer.className = 'simple-form simple-form-checkbox-container';
 
     if (!!this.labelValue) {
       const checkBoxLabel = document.createElement('label');
@@ -193,7 +209,7 @@ class NumberPicker {
     }
 
     const inputAreaContainer = document.createElement('div');
-    inputAreaContainer.className = 'simple-form simple-form-input-container';
+    inputAreaContainer.className = 'simple-form simple-form-number-container';
 
     if (!!labelInputArea) inputAreaContainer.appendChild(labelInputArea)
     inputAreaContainer.appendChild(numberPicker)
@@ -295,7 +311,7 @@ class Dropdown {
     //   dropdownContent.classList.remove('show');
     //   dropdownContent.classList.add('hide');
     // }
-
+    console.log(":)");
     if (elementClicked !== dropdownButton) {
       dropdownContent.classList.remove('show');
       dropdownContent.classList.add('hide');
@@ -314,7 +330,7 @@ class Dropdown {
     dropdownButton.id = `simple-form-dropdown-button-${this.dropdownIdNumber}`
     dropdownButton.textContent = this.dropdownText;
 
-    document.addEventListener('click', () => this.dropdownButtonClickOff(this.dropdownIdNumber));
+    dropdownButton.addEventListener('click', () => this.dropdownButtonClickOff(this.dropdownIdNumber));
     
     const object = this;
     const dropdownContentDiv = document.createElement('div');

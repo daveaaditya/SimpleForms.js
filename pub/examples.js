@@ -37,7 +37,7 @@ MC.addCheckbox('5', 'right');
 MC.addSubmitButton('Check answer', function(e) {
   e.preventDefault();
   const MCSubmission = MC.getFormData();
-
+  console.log(MCSubmission);
   if (MCSubmission[0] === false &&
       MCSubmission[1] === true &&
       MCSubmission[2] === false &&
