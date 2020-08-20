@@ -78,6 +78,7 @@ class Form {
       if (formItem.constructor.name === 'SubmitButton') {
         currentForm.appendChild(formItem.createDOMElement(currentForm, styles));
       } else {
+        console.log(formItem);
         currentForm.appendChild(formItem.createDOMElement(styles));
       }
 
@@ -157,7 +158,7 @@ class InputTextArea {
     inputField.style.borderWidth = styles.inputArea.borderSize;
     inputField.style.borderRadius = styles.inputArea.borderRadius;
     inputField.style.backgroundColor = styles.theme.secondary;
-    
+
     return input;
   }
 
@@ -196,7 +197,31 @@ class Checkbox {
     this.labelSide = labelSide || 'left';
   }
 
-  createDOMElement() {
+  addStyles(checkbox, styles) {
+    if (!styles || !styles.theme || !styles.text || !styles.checkbox) {
+      console.log(styles);
+      console.log(styles.theme);
+      console.log(styles.text);
+      console.log(styles.checkbox);
+      return checkbox;
+    }
+    console.log(styles);
+    checkbox.style.fontSize = styles.text.textSize;
+    checkbox.style.color = styles.text.textColour;
+    checkbox.style.padding = styles.checkbox.padding;
+    checkbox.style.margin = styles.checkbox.margin;
+
+    const checkboxInput = checkbox.querySelector('input');
+
+    checkboxInput.style.height = styles.checkbox.height;
+    checkboxInput.style.width = styles.checkbox.width;
+    checkboxInput.style.borderWidth = styles.checkbox.borderSize;
+    checkboxInput.style.borderRadius = styles.checkbox.borderRadius;
+
+    return checkbox;
+  }
+
+  createDOMElement(styles) {
     const newCheckBox = document.createElement('input');
     newCheckBox.type = 'checkbox';
     newCheckBox.className = `simple-form simple-form-input-area-checkbox`;
@@ -219,7 +244,9 @@ class Checkbox {
       checkBoxContainer.appendChild(newCheckBox);
     }
 
-    return checkBoxContainer;
+    const styledCheckBoxContainer = this.addStyles(checkBoxContainer, styles);
+
+    return styledCheckBoxContainer;
   }
 }
 
@@ -228,7 +255,7 @@ class NumberPicker {
     this.labelValue = labelValue || '';
   }
 
-  createDOMElement() {
+  createDOMElement(styles) {
     const numberPicker = document.createElement('input');
     numberPicker.type = 'number';
     numberPicker.className = `simple-form simple-form-input-area-number`;
@@ -256,7 +283,7 @@ class SubmitButton {
     this.onClickFunction = onClickFunction;
   }
 
-  createDOMElement(form) {
+  createDOMElement(form, styles) {
     const newSubmitButton = document.createElement('input');
     newSubmitButton.type = 'submit';
     newSubmitButton.value = this.buttonText || '';
@@ -277,7 +304,7 @@ class Text {
     this.text = text || '';
   }
 
-  createDOMElement() {
+  createDOMElement(styles) {
     const newText = document.createElement('p');
     newText.textContent = this.text;
     newText.className = 'simple-form simple-form-text';
@@ -351,7 +378,7 @@ class Dropdown {
     }
   }
 
-  createDOMElement() {
+  createDOMElement(styles) {
     const dropdownDiv = document.createElement('div');
     dropdownDiv.className = 'simple-form simple-form-dropdown-container';
     dropdownDiv.id = `simple-form-dropdown-container-${this.dropdownIdNumber}`;
@@ -391,15 +418,17 @@ class Grouping extends Form {
     super(groupingName);
   }
 
-  createDOMElement() {
+  createDOMElement(styles) {
+    console.log('In grouping');
+    console.log(styles);
     const groupingContainer = document.createElement('div'); 
     groupingContainer.className = 'simple-form simple-form-grouping';
 
     const grouping = this.formElements.reduce(function (currentForm, formItem) {
       if (formItem.constructor.name === 'SubmitButton') {
-        currentForm.appendChild(formItem.createDOMElement(currentForm));
+        currentForm.appendChild(formItem.createDOMElement(currentForm, styles));
       } else {
-        currentForm.appendChild(formItem.createDOMElement());
+        currentForm.appendChild(formItem.createDOMElement(styles));
       }
 
       return currentForm;
@@ -478,6 +507,8 @@ styles = {
     margin: '',
   },
   checkbox: {
+    height: '',
+    width: '',
     borderSize: '',
     borderRadius: '',
     padding: '',

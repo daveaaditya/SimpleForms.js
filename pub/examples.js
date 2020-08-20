@@ -40,6 +40,11 @@ styles = {
   inputArea: {
     borderRadius: '30px',
   },
+  checkbox: {
+    height: '24px',
+    width: '24px',
+    borderRadius: '4px',
+  },
   text: {
     textColour: 'white',
   }
@@ -69,4 +74,4 @@ MC.addSubmitButton('Check answer', function(e) {
     MC.addStyle('red-bd');
   }
 });
-MC.buildForm('multiple-choice');
+MC.buildForm('multiple-choice', styles);
