@@ -277,6 +277,24 @@ class SubmitButton {
     this.onClickFunction = onClickFunction;
   }
 
+  addStyles(button, styles) {
+    if (!styles || !styles.theme || !styles.text || !styles.button) {
+      return button;
+    }
+
+    button.style.margin = styles.button.margin;
+    button.style.padding = styles.button.padding;
+    button.style.color = styles.text.textColour;
+    button.style.fontSize = styles.text.textSize;
+
+    const buttonElement = button.querySelector('input');
+    buttonElement.style.backgroundColor = styles.theme.secondary;
+    buttonElement.style.borderWidth = styles.button.borderSize;
+    buttonElement.style.borderRadius = styles.button.borderRadius;
+
+    return button;
+  }
+
   createDOMElement(form, styles) {
     const newSubmitButton = document.createElement('input');
     newSubmitButton.type = 'submit';
@@ -289,7 +307,8 @@ class SubmitButton {
     buttonContainer.appendChild(newSubmitButton);
     form.addEventListener('submit', this.onClickFunction);
 
-    return buttonContainer;
+    const styledButtonContainer = this.addStyles(buttonContainer, styles);
+    return styledButtonContainer;
   }
 }
 
@@ -337,9 +356,7 @@ class Dropdown {
   }
 
   addStyles(dropdown, styles) {
-    console.log(styles);
     if (!styles || !styles.theme || !styles.text || !styles.dropdown) {
-      console.log('...');
       return dropdown;
     }
 
@@ -349,14 +366,12 @@ class Dropdown {
     dropdown.style.margin = styles.dropdown.margin;
 
     const dropdownButton = dropdown.querySelector('button');
-    console.log(dropdownButton);
     dropdownButton.style.backgroundColor = styles.theme.secondary;
     dropdownButton.style.borderWidth = styles.dropdown.buttonBorderSize;
     dropdownButton.style.borderColor = styles.dropdown.buttonBorderColour;
     
     const dropdownItems = dropdown.querySelectorAll('a');
     dropdownItems.forEach(function(item) {
-      console.log(item);
       item.style.backgroundColor = styles.theme.secondary;
       item.addEventListener('mouseover', () => {
         item.style.backgroundColor = styles.dropdown.itemHoverColour;

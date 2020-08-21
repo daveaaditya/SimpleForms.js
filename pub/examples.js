@@ -48,6 +48,9 @@ styles = {
   text: {
     textColour: 'black',
   },
+  button: {
+    borderRadius: '',
+  },
   dropdown: {
     buttonBorderSize: '0',
     margin: '0 auto',
