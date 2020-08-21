@@ -36,7 +36,6 @@
     addDropdown(dropdownText, dropdownItems) {
       const newDropdown = new Dropdown(dropdownText, dropdownItems, dropdowns++);
       dropdowns++;
-      // this.dropdownIdNumber++;
       this.formElements.push(newDropdown);
     }
   
@@ -207,7 +206,7 @@
   class Checkbox {
     constructor(labelValue, labelSide) {
       this.labelValue = labelValue || '';
-      this.labelSide = labelSide || 'left';
+      this.labelSide = labelSide || 'right';
     }
   
     addStyles(checkbox, styles) {
