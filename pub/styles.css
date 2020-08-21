@@ -18,6 +18,11 @@ body, html, head {
   margin: 0 8px;
 }
 
+.header-links:hover {
+  background-color: rgb(64, 175, 164);
+  border-bottom: 4px solid white;
+}
+
 .examples {
   margin: 0 450px;
   padding-bottom: 24px;
