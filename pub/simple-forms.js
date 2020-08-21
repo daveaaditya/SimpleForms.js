@@ -132,12 +132,11 @@
   }
   
   class InputTextArea {
-    constructor(type, inputAreaPlaceholder, labelValue, validator, validationMessage) {
+    constructor(type, inputAreaPlaceholder, labelValue, validator) {
       this.type = type || 'text';
       this.placeholder = inputAreaPlaceholder || '';
       this.labelValue = labelValue || '';
       this.validator = validator || null;
-      this.validationMessage = validationMessage || '';
     }
   
     validateText() {
