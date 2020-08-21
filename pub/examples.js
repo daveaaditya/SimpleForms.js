@@ -106,10 +106,14 @@ const loginFormStyles = {
   inputArea: {
     borderRadius: '16px',
     inputHeight: '40px'
+  },
+  button: {
+    backgroundColour: '#0b57bb',
+    borderColour: 'black'
   }
 }
 
-loginForm.buildForm('test', loginFormStyles);
+loginForm.buildForm('light-login', loginFormStyles);
 
 
 const loginFormDark = createForm('Login');
@@ -141,4 +145,4 @@ const loginFormDarkStyles = {
   }
 }
 
-loginFormDark.buildForm('test', loginFormDarkStyles);
+loginFormDark.buildForm('dark-login', loginFormDarkStyles);
