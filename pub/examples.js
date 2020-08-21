@@ -46,7 +46,13 @@ styles = {
     borderRadius: '4px',
   },
   text: {
-    textColour: 'white',
+    textColour: 'black',
+  },
+  dropdown: {
+    buttonBorderSize: '0',
+    margin: '0 auto',
+    itemHoverTextColour: 'white',
+    itemHoverColour: 'black',
   }
 }
 

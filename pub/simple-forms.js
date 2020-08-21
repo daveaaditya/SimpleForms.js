@@ -78,7 +78,6 @@ class Form {
       if (formItem.constructor.name === 'SubmitButton') {
         currentForm.appendChild(formItem.createDOMElement(currentForm, styles));
       } else {
-        console.log(formItem);
         currentForm.appendChild(formItem.createDOMElement(styles));
       }
 
@@ -113,7 +112,6 @@ class Form {
         }
       }, this);
 
-      console.log(formValues);
       return formValues;
     }
   }
@@ -199,13 +197,9 @@ class Checkbox {
 
   addStyles(checkbox, styles) {
     if (!styles || !styles.theme || !styles.text || !styles.checkbox) {
-      console.log(styles);
-      console.log(styles.theme);
-      console.log(styles.text);
-      console.log(styles.checkbox);
       return checkbox;
     }
-    console.log(styles);
+
     checkbox.style.fontSize = styles.text.textSize;
     checkbox.style.color = styles.text.textColour;
     checkbox.style.padding = styles.checkbox.padding;
@@ -342,11 +336,45 @@ class Dropdown {
     this.opened = false;
   }
 
+  addStyles(dropdown, styles) {
+    console.log(styles);
+    if (!styles || !styles.theme || !styles.text || !styles.dropdown) {
+      console.log('...');
+      return dropdown;
+    }
+
+    dropdown.style.color = styles.text.textColour;
+    dropdown.style.fontSize = styles.text.textSize;
+    dropdown.style.padding = styles.dropdown.padding;
+    dropdown.style.margin = styles.dropdown.margin;
+
+    const dropdownButton = dropdown.querySelector('button');
+    console.log(dropdownButton);
+    dropdownButton.style.backgroundColor = styles.theme.secondary;
+    dropdownButton.style.borderWidth = styles.dropdown.buttonBorderSize;
+    dropdownButton.style.borderColor = styles.dropdown.buttonBorderColour;
+    
+    const dropdownItems = dropdown.querySelectorAll('a');
+    dropdownItems.forEach(function(item) {
+      console.log(item);
+      item.style.backgroundColor = styles.theme.secondary;
+      item.addEventListener('mouseover', () => {
+        item.style.backgroundColor = styles.dropdown.itemHoverColour;
+        item.style.color = styles.dropdown.itemHoverTextColour;
+      })
+      item.addEventListener('mouseout', () => {
+        item.style.backgroundColor = styles.theme.secondary;
+        item.style.color = styles.text.textColour;
+      });
+    }, this);
+
+    return dropdown;
+  }
+
   dropdownPickItem(itemPick) {
     event.preventDefault();
     this.dropdownPick = itemPick;
     
-    const dropdownContent = document.getElementById(`simple-form-dropdown-content-${this.dropdownIdNumber}`);
     const dropdownButton = document.getElementById(`simple-form-dropdown-button-${this.dropdownIdNumber}`);
     dropdownButton.textContent = itemPick;
     
@@ -424,7 +452,9 @@ class Dropdown {
     dropdownDiv.appendChild(dropdownButton);
     dropdownDiv.appendChild(dropdownContent);
 
-    return dropdownDiv;
+    const styledDropdownDiv = this.addStyles(dropdownDiv, styles);
+
+    return styledDropdownDiv;
   }
 }
 
@@ -434,8 +464,6 @@ class Grouping extends Form {
   }
 
   createDOMElement(styles) {
-    console.log('In grouping');
-    console.log(styles);
     const groupingContainer = document.createElement('div'); 
     groupingContainer.className = 'simple-form simple-form-grouping';
 
@@ -530,9 +558,12 @@ styles = {
     margin: '',
   },
   dropdown: {
+    buttonBorderSize:'',
+    buttonBorderColour: '',
     center: '',
-    highlight: '',
     padding: '',
-    margin: ''
+    margin: '',
+    itemHoverColour: '',
+    itemHoverTextColour: ''
   }
 }
