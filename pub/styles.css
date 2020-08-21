@@ -4,6 +4,20 @@ body, html, head {
   font-family: 'Roboto', sans-serif;
 }
 
+.header {
+  text-align: center;
+  background-color: turquoise;
+  padding: 24px;
+}
+
+.header-links {
+  color: inherit;
+  text-decoration: none;
+  padding: 16px;
+  border-radius: 8px;
+  margin: 0 8px;
+}
+
 .examples {
   margin: 0 450px;
   padding-bottom: 24px;
