@@ -28,9 +28,22 @@
       </div>
     </div>
     <div class="examples">
+      <div class="login-form-example">
+        <p>Here is an example of a login page developed using the library. 
+           Try logging in with the credentials of <strong>name: User, email: user@email.com, password: Test@1234</strong>.</p>
+        
+        <p>This example is meant to show you how you, the user, can add any functionality to your form! Using the library, you can
+          quickly generate the login form and give it functionality by passing any callback function you want for the submit button.
+          The library also gives the developer the ability to validate some text input given a Regex. For the password field, the text is 
+          validated given the following criteria: minimum length of 8, 1 capital letter, 1 lowercase letter, 1 special symbol.</p>
+        <p>As well, the dark themed version of the form is given using the styling properties of the library.</p>
+      </div>
       <div class="logins" id="light-login">
         <!-- The form will be placed here by the library. -->
       </div>
+      <div id='success-button'>
+        <!-- Text added here when successful login. -->
+      </div> 
       <div class="logins" id="dark-login">
         <!-- The form will be placed here by the library. -->
       </div>
@@ -39,37 +52,27 @@
         <p>This website will walk you through the library and show you the potential of using the library.</p>
       </div>
 
-      <div class="login-form-example">
-        <p>Here is an example of a login page developed using the library. 
-           Try logging in with the credentials of <strong>name: User, email: user@email.com, password: user-test</strong>.
-           This example is meant to show you how you, the user, can add any functionality to your form! Using the library, you can
-          quickly generate the login form and give it functionality by passing any callback function you want for the submit button.</p>
-      </div>
-      <div id="login-form">
-        <!-- The form will be placed here by the library. -->
-      </div>
-      <div id="success-button">
-        <!-- Added here by examples.js -->
-      </div>
       <div class="code-snippet">
         <pre>
           <code class="code-snippet-login-form">
-            const newForm = createForm('New Form');
+            const loginForm = createForm('Login');
             let loggedIn = false;
-            newForm.addInputArea('text', 'Name', 'Enter your name here');
-            newForm.addInputArea('email', 'Username', 'Email');
-            newForm.addInputArea('password', 'Enter Password here', 'Password');
-            newForm.addSubmitButton('Submit', function(e) {
+            loginForm.addInputArea('text', 'Name', 'Enter your name');
+            loginForm.addInputArea('email', 'Email', 'Email');
+            loginForm.addInputArea('password', 'Password', 'Password', 
+                                    RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"));
+            loginForm.addSubmitButton('LOGIN', function(e) {
               e.preventDefault();
-              const formData = newForm.getFormData()
-
+              const formData = loginForm.getFormData()
+              console.log(formData);
               if (formData[0] === 'User' &&
                   formData[1] === 'user@email.com' &&
-                  formData[2] === 'user-test') {
+                  formData[2] === 'Test@1234') {
                 if (loggedIn === true) return;
                 loggedIn = true;
                 const successText = document.createElement('h1');
                 successText.textContent = 'You logged in!';
+                successText.className = 'success-text';
                 const successTextContainer = document.querySelector('#success-button');
                 successTextContainer.appendChild(successText);
               } else {
@@ -80,7 +83,8 @@
                 successTextContainer.removeChild(successText);
               }
             });
-            newForm.buildForm('login-form');
+
+            loginForm.buildForm('light-login', loginFormStyles);
           </code>
         </pre>
       </div>

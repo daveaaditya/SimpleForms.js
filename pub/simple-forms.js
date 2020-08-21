@@ -1,4 +1,5 @@
 (function(global) {
+  let dropdowns = 0;
   class Form {
     constructor(formName) {
       this.formName = formName;
@@ -33,8 +34,9 @@
     }
   
     addDropdown(dropdownText, dropdownItems) {
-      const newDropdown = new Dropdown(dropdownText, dropdownItems, this.dropdownIdNumber);
-      this.dropdownIdNumber++;
+      const newDropdown = new Dropdown(dropdownText, dropdownItems, dropdowns++);
+      dropdowns++;
+      // this.dropdownIdNumber++;
       this.formElements.push(newDropdown);
     }
   
@@ -463,7 +465,7 @@
       const dropdownContentDiv = document.createElement('div');
       dropdownContentDiv.className = 'simple-form simple-form-dropdown-content-container hide';
       dropdownContentDiv.id = `simple-form-dropdown-content-${this.dropdownIdNumber}`;
-  
+      
       const dropdownContent = this.dropdownItems.reduce(function(content, item) {
         const itemAnchor = document.createElement('a');
         itemAnchor.href = '#';
