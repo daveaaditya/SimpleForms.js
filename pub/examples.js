@@ -1,6 +1,6 @@
 const newForm = createForm('New Form');
 let loggedIn = false;
-newForm.addInputArea('text', 'Name', 'Enter your name here', RegExp('test'));
+newForm.addInputArea('text', 'Name', 'Enter your name here', RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"));
 newForm.addInputArea('email', 'Username', 'Email');
 newForm.addInputArea('password', 'Enter Password here', 'Password');
 newForm.addDropdown('test dropdown', ['one', 'two', 'three', 'Heeeeeeeeeeeeeellllloooooooooo']);
@@ -39,6 +39,7 @@ styles = {
   },
   inputArea: {
     borderRadius: '30px',
+    // inputHeight: '5px',
   },
   checkbox: {
     height: '24px',
@@ -52,10 +53,11 @@ styles = {
     borderRadius: '',
   },
   dropdown: {
-    buttonBorderSize: '0',
+    buttonBorderSize: '2px',
     margin: '0 auto',
     itemHoverTextColour: 'white',
     itemHoverColour: 'black',
+    backgroundColour: 'white'
   }
 }
 
@@ -84,3 +86,59 @@ MC.addSubmitButton('Check answer', function(e) {
   }
 });
 MC.buildForm('multiple-choice', styles);
+
+
+const loginForm = createForm('Login');
+loginForm.addInputArea('text', 'Name', 'Enter your name');
+loginForm.addInputArea('email', 'Email', 'Email');
+loginForm.addInputArea('password', 'Password', 'Password', RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"));
+loginForm.addSubmitButton('LOGIN', function(e) {
+  e.preventDefault();
+});
+
+const loginFormStyles = {
+  form: {
+    borderRadius: '8px',
+  },
+  text: {
+    textSize: '16px'
+  },
+  inputArea: {
+    borderRadius: '16px',
+    inputHeight: '40px'
+  }
+}
+
+loginForm.buildForm('test', loginFormStyles);
+
+
+const loginFormDark = createForm('Login');
+loginFormDark.addInputArea('text', 'Name', 'Enter your name');
+loginFormDark.addInputArea('email', 'Email', 'Email');
+loginFormDark.addInputArea('password', 'Password', 'Password', RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"));
+loginFormDark.addSubmitButton('LOGIN', function(e) {
+  e.preventDefault();
+});
+
+const loginFormDarkStyles = {
+  form: {
+    backgroundColour: '#181a1b',
+    borderRadius: '8px',
+  },
+  text: {
+    textSize: '16px',
+    textColour: 'white'
+  },
+  button: {
+    backgroundColour: '#0b57bb',
+    borderColour: 'white'
+  },
+  inputArea: {
+    borderRadius: '16px',
+    inputHeight: '40px',
+    borderColour: 'white',
+    backgroundColour: '#181a1b'
+  }
+}
+
+loginFormDark.buildForm('test', loginFormDarkStyles);

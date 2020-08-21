@@ -41,6 +41,12 @@
   padding: 0 0 0 12px;
 }
 
+.simple-form-input-area-email:focus, 
+.simple-form-input-area-password:focus, 
+.simple-form-input-area-text:focus {
+  outline-width: 0;
+}
+
 .simple-form-button {
   padding: 16px;
   border-radius: 100px;
@@ -114,7 +120,8 @@
 */
 .red-bd {
   border-color: red;
-  box-shadow: 0 1px 5px red;
+  border-width: 2px;
+  box-shadow: 0 3px 1px red;
 }
 
 .green-bd {

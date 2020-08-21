@@ -42,11 +42,11 @@ class Form {
   }
   
   addStyles(form, styles) {
-    if (!styles || !styles.theme || !styles.text || !styles.form) {
+    if (!styles || !styles.text || !styles.form) {
       return form;
     }
 
-    form.style.backgroundColor = styles.theme.primary;
+    form.style.backgroundColor = styles.form.backgroundColour;
     form.style.borderWidth = styles.form.borderSize;
     form.style.borderRadius = styles.form.borderRadius;
     form.style.margin = styles.form.margin;
@@ -141,7 +141,7 @@ class InputTextArea {
   }
 
   addStyles(input, styles) {
-    if (!styles || !styles.theme || !styles.text || !styles.inputArea) {
+    if (!styles || !styles.text || !styles.inputArea) {
       return input;
     }
 
@@ -153,8 +153,11 @@ class InputTextArea {
     const inputField = input.querySelector('input');
     
     inputField.style.borderWidth = styles.inputArea.borderSize;
+    inputField.style.height = styles.inputArea.inputHeight;
     inputField.style.borderRadius = styles.inputArea.borderRadius;
-    inputField.style.backgroundColor = styles.theme.secondary;
+    inputField.style.borderColor = styles.inputArea.borderColour;
+    inputField.style.backgroundColor = styles.inputArea.backgroundColour;
+    inputField.style.color = styles.text.textColour;
 
     return input;
   }
@@ -167,7 +170,7 @@ class InputTextArea {
   
     newInputArea.className = `simple-form simple-form-input-area-${this.type}`;
     
-    newInputArea.addEventListener('keydown', () => { this.validateText() });
+    newInputArea.addEventListener('keypress', () => { this.validateText() });
 
     let labelInputArea;
     if (!!this.labelValue) {
@@ -195,7 +198,7 @@ class Checkbox {
   }
 
   addStyles(checkbox, styles) {
-    if (!styles || !styles.theme || !styles.text || !styles.checkbox) {
+    if (!styles || !styles.text || !styles.checkbox) {
       return checkbox;
     }
 
@@ -277,7 +280,7 @@ class SubmitButton {
   }
 
   addStyles(button, styles) {
-    if (!styles || !styles.theme || !styles.text || !styles.button) {
+    if (!styles || !styles.text || !styles.button) {
       return button;
     }
 
@@ -287,9 +290,11 @@ class SubmitButton {
     button.style.fontSize = styles.text.textSize;
 
     const buttonElement = button.querySelector('input');
-    buttonElement.style.backgroundColor = styles.theme.secondary;
+    buttonElement.style.backgroundColor = styles.button.backgroundColour;
     buttonElement.style.borderWidth = styles.button.borderSize;
     buttonElement.style.borderRadius = styles.button.borderRadius;
+    buttonElement.style.borderColor = styles.button.borderColour;
+    buttonElement.style.color = styles.text.textColour;
 
     return button;
   }
@@ -317,7 +322,7 @@ class Text {
   }
 
   addStyles(text, styles) {
-    if (!styles || !styles.theme || !styles.text) {
+    if (!styles || !styles.text) {
       return text;
     }
 
@@ -355,7 +360,7 @@ class Dropdown {
   }
 
   addStyles(dropdown, styles) {
-    if (!styles || !styles.theme || !styles.text || !styles.dropdown) {
+    if (!styles || !styles.text || !styles.dropdown) {
       return dropdown;
     }
 
@@ -365,19 +370,22 @@ class Dropdown {
     dropdown.style.margin = styles.dropdown.margin;
 
     const dropdownButton = dropdown.querySelector('button');
-    dropdownButton.style.backgroundColor = styles.theme.secondary;
+    dropdownButton.style.backgroundColor = styles.dropdown.backgroundColour;
     dropdownButton.style.borderWidth = styles.dropdown.buttonBorderSize;
     dropdownButton.style.borderColor = styles.dropdown.buttonBorderColour;
     
     const dropdownItems = dropdown.querySelectorAll('a');
+    console.log(dropdownItems);
     dropdownItems.forEach(function(item) {
-      item.style.backgroundColor = styles.theme.secondary;
+      console.log(styles.dropdown.backgroundColour);
+      item.style.backgroundColor = styles.dropdown.backgroundColour;
       item.addEventListener('mouseover', () => {
         item.style.backgroundColor = styles.dropdown.itemHoverColour;
         item.style.color = styles.dropdown.itemHoverTextColour;
       })
       item.addEventListener('mouseout', () => {
-        item.style.backgroundColor = styles.theme.secondary;
+        console.log(styles.dropdown.backgroundColour);
+        item.style.backgroundColor = styles.dropdown.backgroundColour;
         item.style.color = styles.text.textColour;
       });
     }, this);
@@ -538,6 +546,7 @@ styles = {
     secondary: ''
   },
   form: {
+    backgroundColour: '',
     borderSize: '',
     borderRadius: '',
     borderColour: '',
@@ -547,15 +556,20 @@ styles = {
   button: {
     borderSize: '',
     borderRadius: '',
+    borderColour: '',
     margin: '',
     padding: '',
+    backgroundColour: ''
   },
   inputArea: {
     borderSize: '',
     borderRadius: '',
+    borderColour: '',
     padding: '',
     margin: '',
     errorColour: '',
+    inputHeight: '',
+    backgroundColour: ''
   },
   text: {
     textSize: '',
@@ -577,6 +591,7 @@ styles = {
     center: '',
     padding: '',
     margin: '',
+    backgroundColour: '',
     itemHoverColour: '',
     itemHoverTextColour: ''
   }
