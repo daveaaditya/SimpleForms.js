@@ -35,6 +35,12 @@
   background-color: #dce3e8;
 }
 
+.simple-form-input-area-email[type=email], 
+.simple-form-input-area-password[type=password], 
+.simple-form-input-area-text[type=text] {
+  padding: 0 0 0 12px;
+}
+
 .simple-form-button {
   padding: 16px;
   border-radius: 100px;
