@@ -61,32 +61,69 @@
       </table>
       <h3>How to add items to your forms</h3>
       <p>This section will show you how to add items to your forms so you can get the functionality you are looking for.</p>
-
+      <p>Whether you intialized a Form or a Grouping object, you can begin adding items to it using the following syntax:
+        <code>form.addItem(...args)</code> or <code>grouping.addItem(...args)</code>.
+      </p>
+      <table cellspacing="0" class="api-table">
+        <tr>
+          <th>Function</th>
+          <th class="args">Arguments</th>
+          <th>Description</th>
+        </tr>
+        <tr>
+          <td>addInputArea</td>
+          <td class="args">type: 'text' | 'email' | 'password', default: ' ' <br/>
+              inputAreaPlaceholder: String, default: ' ' <br/>
+              labelValue: String, defualt: ' ' <br/>
+              validator: RegExp, default: null <br/>
+          </td>
+          <td>Creates an input text area with type: <code>type</code> with placeholer
+              text as <code>inputAreaPlaceholder</code> and top label value as <code>labelValue</code> and
+              text validator as <code>validator</code>.</td>
+        </tr>
+        <tr>
+          <td>addCheckbox</td>
+          <td class="args">
+            labelValue: String, default: ' '
+            labelSide: 'left', 'right', default: 'right'
+          </td>
+          <td>Creates a checkbox with a label of value: <code>labelValue</code> and on the side <code>labelSide</code>.</td>
+        </tr>
+        <tr>
+          <td>addSubmitButton</td>
+          <td class="args">
+            buttonText: String, default: ' ',
+            onClickFunction: function(event)
+          </td>
+          <td>Creates a button with text <code>buttonText</code>, when pressed executes <code>onClickFunction</code>.</td>
+        </tr>
+        <tr>
+          <td>addText</td>
+          <td class="args">
+            text: String, default: ' '
+          </td>
+          <td>Adds text to the form with value <code>text</code>.</td>
+        </tr>
+        <tr>
+          <td>addDropdown</td>
+          <td class="args">
+            dropdownText: String, default: ' '
+            dropdownItems: Array[String]
+          </td>
+          <td>Creates a dropdown with dropdown button text as: <code>dropdownText</code> with dropdown options as 
+            <code>dropdownItems</code>.
+          </td>
+        </tr>
+        <tr>
+          <td>addGrouping</td>
+          <td class="args">
+            grouping: Grouping Object
+          </td>
+          <td>Adds grouping to the form.</td>
+        </tr>
+      </table>
+      <h3>Displaying your form to the DOM</h3>
       <table>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
 
       </table>
     </div>
