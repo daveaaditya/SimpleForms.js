@@ -55,8 +55,6 @@ class Form {
     form.style.color = styles.text.textColour;
     form.style.fontSize = styles.text.textSize;
 
-    // const formElement = document.querySelector(`#${this.id}`).querySelector('form');
-    // formElement.className = `simple-form simple-form-container ${styles}`;
     return form;
   }
   
@@ -90,7 +88,6 @@ class Form {
   getFormData() {
     if (!!this.id) {
       const form = document.querySelector(`#${this.id}`);
-      // const formInputs = form.querySelectorAll('div');
       const formInputs = form.querySelector('form').childNodes;
 
       const formValues = [];
@@ -375,16 +372,14 @@ class Dropdown {
     dropdownButton.style.borderColor = styles.dropdown.buttonBorderColour;
     
     const dropdownItems = dropdown.querySelectorAll('a');
-    console.log(dropdownItems);
+
     dropdownItems.forEach(function(item) {
-      console.log(styles.dropdown.backgroundColour);
       item.style.backgroundColor = styles.dropdown.backgroundColour;
       item.addEventListener('mouseover', () => {
         item.style.backgroundColor = styles.dropdown.itemHoverColour;
         item.style.color = styles.dropdown.itemHoverTextColour;
       })
       item.addEventListener('mouseout', () => {
-        console.log(styles.dropdown.backgroundColour);
         item.style.backgroundColor = styles.dropdown.backgroundColour;
         item.style.color = styles.text.textColour;
       });
@@ -428,13 +423,6 @@ class Dropdown {
     const dropdownButton = document.getElementById(`simple-form-dropdown-button-${dropdownIdNumber}`);
     const dropdownContent = document.getElementById(`simple-form-dropdown-content-${dropdownIdNumber}`);
     const elementClicked = document.elementFromPoint(event.clientX, event.clientY);
-
-    // if (elementClicked !== dropdownDiv && 
-    //     elementClicked !== dropdownButton &&
-    //     elementClicked !== dropdownContent) {
-    //   dropdownContent.classList.remove('show');
-    //   dropdownContent.classList.add('hide');
-    // }
 
     if (elementClicked !== dropdownButton) {
       dropdownContent.classList.remove('show');
@@ -503,7 +491,6 @@ class Grouping extends Form {
   }
 
   getGroupingData(grouping) {
-    // const groupingInputs = grouping.querySelectorAll('div');
     const groupingInputs = grouping.childNodes;
 
     const groupValues = [];
