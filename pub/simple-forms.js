@@ -128,8 +128,7 @@ class InputTextArea {
 
   validateText() {
     const inputArea = event.target;
-    const inputText = inputArea.value + String.fromCharCode(event.which);
-    
+    const inputText = inputArea.value + event.key;
     if (this.validator === null) {
       return;
     }
