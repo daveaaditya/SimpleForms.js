@@ -40,6 +40,20 @@ class Form {
   addGrouping(grouping) {
     this.formElements.push(grouping);
   }
+
+  addClass(style) {
+    if (!!this.id) {
+      const formElement = document.querySelector(`#${this.id}`).querySelector('form');
+      formElement.classList.add(`${style}`);
+    }
+  }
+
+  removeClass(style) {
+    if (!!this.id) {
+      const formElement = document.querySelector(`#${this.id}`).querySelector('form');
+      formElement.classList.remove(`${style}`);
+    }
+  }
   
   addStyles(form, styles) {
     if (!styles || !styles.text || !styles.form) {

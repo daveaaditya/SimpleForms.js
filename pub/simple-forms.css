@@ -19,6 +19,9 @@
 
 .simple-form-checkbox-container {
   margin: 24px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .simple-form-number-container {
@@ -126,7 +129,8 @@
 
 .green-bd {
   border-color: green;
-  box-shadow: 0 1px 5px green;
+  border-width: 2px;
+  box-shadow: 0 3px 1px green;
 }
 
 .show {

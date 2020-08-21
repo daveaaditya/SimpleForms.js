@@ -42,11 +42,12 @@ styles = {
     // inputHeight: '5px',
   },
   checkbox: {
-    height: '24px',
-    width: '24px',
+    height: '48px',
+    width: '48px',
     borderRadius: '4px',
   },
   text: {
+    textSize: '16px',
     textColour: 'black',
   },
   button: {
@@ -80,9 +81,11 @@ MC.addSubmitButton('Check answer', function(e) {
       MCSubmission[0][1] === true &&
       MCSubmission[0][2] === false &&
       MCSubmission[0][3] === false) {
-    MC.addStyle('green-bd');
+    MC.addClass('green-bd');
+    MC.removeClass('red-bd');
   } else {
-    MC.addStyle('red-bd');
+    MC.removeClass('green-bd');
+    MC.addClass('red-bd');
   }
 });
 MC.buildForm('multiple-choice', styles);
