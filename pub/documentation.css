@@ -1,0 +1,32 @@
+body, html, head {
+  padding: 0;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  height: 100%;
+}
+
+.header {
+  text-align: center;
+  background-color: turquoise;
+  padding: 24px;
+}
+
+.header-links {
+  color: inherit;
+  text-decoration: none;
+  padding: 16px;
+  border-radius: 8px;
+  margin: 0 8px;
+}
+
+.header-links:hover {
+  background-color: rgb(64, 175, 164);
+  border-bottom: 4px solid white;
+}
+
+.body {
+  margin: 0 450px;
+}
