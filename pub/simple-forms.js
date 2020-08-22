@@ -547,8 +547,7 @@
   global.createGrouping = global.createGrouping || createGrouping;
 })(window);
 
-
-
+/* List of supported styles for the forms.
 styles = {
   form: {
     backgroundColour: '',
@@ -601,3 +600,4 @@ styles = {
     itemHoverTextColour: ''
   }
 }
+*/
