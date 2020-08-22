@@ -100,25 +100,30 @@
         <pre>
           <code class="code-snippet-mc">
             const MC = createForm('MC');
-            MC.addText('What is 3 + 3?');
-            MC.addCheckbox('4', 'right');
-            MC.addCheckbox('6', 'right');
-            MC.addCheckbox('3', 'right');
-            MC.addCheckbox('5', 'right');
+            const MCGroup = createGrouping('MC Group');
+
+            MCGroup.addText('What is 3 + 3?');
+            MCGroup.addCheckbox('4', 'right');
+            MCGroup.addCheckbox('6', 'right');
+            MCGroup.addCheckbox('3', 'right');
+            MCGroup.addCheckbox('5', 'right');
+            MC.addGrouping(MCGroup);
+
             MC.addSubmitButton('Check answer', function(e) {
               e.preventDefault();
               const MCSubmission = MC.getFormData();
-            
-              if (MCSubmission[0] === false &&
-                  MCSubmission[1] === true &&
-                  MCSubmission[2] === false &&
-                  MCSubmission[3] === false) {
-                MC.addStyle('green-bd');
+              if (MCSubmission[0][0] === false &&
+                  MCSubmission[0][1] === true &&
+                  MCSubmission[0][2] === false &&
+                  MCSubmission[0][3] === false) {
+                MC.addClass('green-bd');
+                MC.removeClass('red-bd');
               } else {
-                MC.addStyle('red-bd');
+                MC.removeClass('green-bd');
+                MC.addClass('red-bd');
               }
             });
-            MC.buildForm('multiple-choice');
+            MC.buildForm('multiple-choice', MCStyles);
           </code>
         </pre>
       </div>
