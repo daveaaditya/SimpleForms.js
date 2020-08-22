@@ -122,9 +122,131 @@
           <td>Adds grouping to the form.</td>
         </tr>
       </table>
+      <h3>Adding styles to your form</h3>
+      <p>To add styles to your form, create a JS Object given by the fields and add the CSS styling you would like to them.</p>
+      
+      <table cellspacing="0" class="api-table">
+        <tr>
+          <th>Field</th>
+          <th>Subfields</th>
+        </tr>
+        <tr>
+          <td>form</td>
+          <td>
+            backgroundColour <br/>
+            borderSize<br/>
+            borderRadius<br/>
+            borderColour<br/>
+            margin<br/>
+            padding<br/>
+          </td>
+        </tr>
+        <tr>
+          <td>button</td>
+          <td>
+            borderSize <br/>
+            borderRadius <br/>
+            borderColour <br/>
+            margin <br/>
+            padding <br/>
+            backgroundColour <br/>
+          </td>
+        </tr>
+        <tr>
+          <td>inputArea</td>
+          <td>
+            borderSize <br/>
+            borderRadius <br/>
+            borderColour <br/>
+            padding <br/>
+            margin <br/>
+            errorColour <br/>
+            inputHeight <br/>
+            backgroundColour <br/>
+          </td>
+        </tr>
+        <tr>
+          <td>text</td>
+          <td>
+            textSize <br/>
+            textColour <br/>
+            padding <br/>
+            margin <br/>
+          </td>
+        </tr>
+        <tr>
+          <td>checkbox</td>
+          <td>
+            height <br/>
+            width <br/>
+            borderSize <br/>
+            borderRadius <br/>
+            padding <br/>
+            margin <br/>
+          </td>
+        </tr>
+        <tr>
+          <td>dropdown</td>
+          <td>
+            buttonBorderSize <br/>
+            buttonBorderColour <br/>
+            center <br/>
+            padding <br/>
+            margin <br/>
+            backgroundColour <br/>
+            itemHoverColour <br/>
+            itemHoverTextColour <br/>
+          </td>
+        </tr>
+      </table>
+      Note that for SimpleForms.js to work, you must provide a styling for text to be able to restyle the form components.
+      An example of this JS Object is provided below.
+      <pre>
+        <code>
+          const styles = {
+            form: {
+              borderRadius: '8px',
+            },
+            text: {
+              textSize: '16px'
+            },
+            inputArea: {
+              borderRadius: '16px',
+              inputHeight: '40px'
+            },
+            button: {
+              backgroundColour: '#0b57bb',
+              borderColour: 'black'
+            }
+          }
+        </code>
+      </pre>
       <h3>Displaying your form to the DOM</h3>
-      <table>
-
+      <p>Once you have built up your form, you can add it to the DOM with one simple function.</p>
+      <table cellspacing="0" class="api-table">
+        <tr>
+          <th>
+            Function
+          </th>
+          <th class="args">
+            Arguments
+          </th>
+          <th>
+            Description
+          </th>
+        </tr>
+        <tr>
+          <td>
+            buildForm
+          </td>
+          <td class="args">
+            id: String <br/>
+            styles: JS Object
+          </td>
+          <td>
+            Adds the form to the DOM at id <code>id</code> with styles given by <code>styles</code>.
+          </td>
+        </tr>
       </table>
     </div>
   </body>
